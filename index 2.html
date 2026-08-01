@@ -1,0 +1,1718 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Veinte&30 · ANCAP Punta del Este</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   VEINTE&30 CARWASH — Hoja de estilos
+   Paleta ANCAP · Azul marino profundo + Amarillo señal
+   ═══════════════════════════════════════════════════════════════ */
+
+:root{
+  /* Superficies */
+  --navy:    #081422;
+  --navy2:   #0c1c33;
+  --navy3:   #12294a;
+  --navy4:   #1a345e;
+  --surface: #0e2038;
+  --card:    #0d1d34;
+  --card-hi: #112441;
+
+  /* Marca */
+  --yellow:  #f5c518;
+  --yellow2: #ffd83d;
+  --yellow-deep:#d9ac00;
+  --yellow-glow:rgba(245,197,24,0.25);
+
+  /* Texto */
+  --white:   #f6f8fc;
+  --gray2:   #aab8cc;
+  --gray:    #6f7f97;
+  --gray-dim:#4c5a70;
+
+  /* Bordes */
+  --border:  rgba(245,197,24,0.14);
+  --border2: rgba(255,255,255,0.06);
+  --border3: rgba(255,255,255,0.03);
+
+  /* Estados */
+  --green:#33d17a;--red:#f0553d;--orange:#f5a623;
+
+  /* Sombras */
+  --sh-sm: 0 2px 8px rgba(0,0,0,0.24);
+  --sh-md: 0 10px 30px rgba(0,0,0,0.34);
+  --sh-lg: 0 24px 60px rgba(0,0,0,0.44);
+  --sh-yellow: 0 12px 34px rgba(245,197,24,0.24);
+
+  /* Ritmo tipográfico */
+  --ease: cubic-bezier(.22,.61,.36,1);
+  --ease-out: cubic-bezier(.16,1,.3,1);
+
+  /* Layout */
+  --maxw: 1240px;
+  --pad-x: clamp(20px, 5vw, 72px);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:'DM Sans',system-ui,sans-serif;
+  background:var(--navy);
+  color:var(--white);
+  overflow-x:hidden;
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+img{max-width:100%;display:block}
+a{color:inherit}
+
+/* Selección */
+::selection{background:var(--yellow);color:var(--navy)}
+
+/* Scrollbar */
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:var(--navy)}
+::-webkit-scrollbar-thumb{background:linear-gradient(var(--yellow),var(--yellow-deep));border-radius:6px;border:2px solid var(--navy)}
+::-webkit-scrollbar-thumb:hover{background:var(--yellow2)}
+
+/* ─────────────────────────────────────────────  NAV  ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 var(--pad-x);height:70px;
+  background:rgba(8,20,34,0.72);
+  backdrop-filter:blur(20px) saturate(140%);
+  -webkit-backdrop-filter:blur(20px) saturate(140%);
+  border-bottom:1px solid var(--border2);
+  transition:background .3s var(--ease),border-color .3s var(--ease);
+}
+.nav-logo{
+  font-family:'Bebas Neue',sans-serif;font-size:23px;letter-spacing:3.5px;
+  color:var(--white);display:flex;align-items:center;gap:11px;text-decoration:none;
+  transition:opacity .2s;
+}
+.nav-logo:hover{opacity:.82}
+.nav-logo .bar{width:4px;height:22px;background:var(--yellow);border-radius:2px;box-shadow:0 0 12px var(--yellow-glow)}
+.nav-links{display:flex;gap:6px;list-style:none}
+.nav-links a{
+  color:var(--gray2);font-size:13px;font-weight:500;text-decoration:none;
+  letter-spacing:.02em;padding:8px 14px;border-radius:8px;
+  transition:color .2s var(--ease),background .2s var(--ease);position:relative;
+}
+.nav-links a:hover{color:var(--white);background:rgba(255,255,255,0.04)}
+.nav-cta{
+  background:var(--yellow);color:var(--navy);
+  padding:10px 22px;border-radius:9px;font-size:13px;font-weight:700;
+  text-decoration:none;letter-spacing:.02em;margin-left:8px;
+  transition:transform .2s var(--ease),box-shadow .25s var(--ease),background .2s;
+  box-shadow:0 4px 14px rgba(245,197,24,0.28);
+}
+.nav-cta:hover{background:var(--yellow2);transform:translateY(-2px);box-shadow:var(--sh-yellow)}
+.nav-cta:active{transform:translateY(0)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:6px}
+.hamburger span{width:24px;height:2px;background:var(--white);border-radius:2px;transition:.3s var(--ease)}
+.mob-menu{
+  display:none;position:fixed;top:70px;left:0;right:0;
+  background:rgba(12,28,51,0.98);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);z-index:199;
+  padding:12px var(--pad-x) 20px;flex-direction:column;
+}
+.mob-menu a{
+  color:var(--gray2);font-size:15px;font-weight:500;text-decoration:none;
+  padding:14px 4px;border-bottom:1px solid var(--border3);display:block;
+  transition:color .2s,padding-left .2s var(--ease);
+}
+.mob-menu a:hover{color:var(--yellow);padding-left:10px}
+.mob-menu.open{display:flex;animation:menuDrop .3s var(--ease-out)}
+@keyframes menuDrop{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:translateY(0)}}
+
+/* ────────────────────────────────────  BANNER ROTATIVO  ── */
+.banner-wrap{margin-top:70px;position:relative;overflow:hidden;background:var(--navy2)}
+.banner-track{display:flex;transition:transform .7s var(--ease-out)}
+.banner-slide{
+  min-width:100%;padding:15px var(--pad-x);
+  display:flex;align-items:center;justify-content:center;gap:16px;
+  flex-wrap:wrap;text-align:center;
+}
+.banner-slide.b1,.banner-slide.b4{background:linear-gradient(100deg,var(--yellow),var(--yellow-deep));color:var(--navy)}
+.banner-slide.b2{background:linear-gradient(100deg,var(--navy2),var(--navy3));color:var(--yellow);border-bottom:1px solid var(--border)}
+.banner-slide.b3{background:linear-gradient(100deg,#191300,#2b2100);color:var(--yellow);border-bottom:1px solid var(--border)}
+.banner-icon{font-size:22px;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2))}
+.banner-text{font-size:14px;font-weight:600;letter-spacing:.01em}
+.banner-text strong{font-family:'Bebas Neue',sans-serif;font-size:19px;letter-spacing:1px;margin-right:7px;font-weight:400}
+.banner-cta{
+  background:var(--navy);color:var(--yellow);
+  padding:6px 16px;border-radius:7px;font-size:12px;font-weight:700;
+  text-decoration:none;transition:transform .2s var(--ease),box-shadow .2s;letter-spacing:.03em;
+  box-shadow:0 2px 8px rgba(0,0,0,0.25);
+}
+.banner-slide.b2 .banner-cta,.banner-slide.b3 .banner-cta{background:var(--yellow);color:var(--navy)}
+.banner-cta:hover{transform:translateY(-2px) scale(1.03)}
+.banner-dots{position:absolute;bottom:7px;left:50%;transform:translateX(-50%);display:flex;gap:6px;z-index:5}
+.banner-dot{width:6px;height:6px;border-radius:50%;background:rgba(0,0,0,0.28);cursor:pointer;transition:all .3s var(--ease)}
+.banner-slide.b2 ~ .banner-dots .banner-dot,.banner-slide.b3 ~ .banner-dots .banner-dot{background:rgba(255,255,255,0.3)}
+.banner-dot.active{width:18px;border-radius:3px;background:rgba(0,0,0,0.62)}
+
+/* ───────────────────────────────────────────────  HERO  ── */
+.hero{
+  min-height:calc(100vh - 116px);display:flex;align-items:center;
+  padding:60px var(--pad-x) 90px;position:relative;overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 70% 55% at 72% 45%, rgba(245,197,24,0.10) 0%, transparent 68%),
+    radial-gradient(ellipse 45% 45% at 8% 85%, rgba(245,197,24,0.05) 0%, transparent 60%);
+}
+.hero-grid{
+  position:absolute;inset:0;pointer-events:none;
+  background-image:linear-gradient(var(--border2) 1px,transparent 1px),linear-gradient(90deg,var(--border2) 1px,transparent 1px);
+  background-size:64px 64px;
+  mask-image:radial-gradient(ellipse 75% 75% at 45% 50%,#000 35%,transparent 100%);
+  -webkit-mask-image:radial-gradient(ellipse 75% 75% at 45% 50%,#000 35%,transparent 100%);
+}
+.hero-content{position:relative;z-index:2;max-width:660px}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:9px;
+  background:rgba(245,197,24,0.09);border:1px solid rgba(245,197,24,0.28);
+  color:var(--yellow);font-size:12px;font-weight:600;letter-spacing:.14em;
+  text-transform:uppercase;padding:7px 16px;border-radius:100px;margin-bottom:30px;
+  animation:fadeUp .7s var(--ease-out) both;
+}
+.hero-eyebrow .dot{width:6px;height:6px;background:var(--yellow);border-radius:50%;box-shadow:0 0 8px var(--yellow);animation:pulse 2.2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.82)}}
+.hero h1{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(56px,9.5vw,118px);line-height:.88;letter-spacing:1.5px;
+  margin-bottom:26px;
+  animation:fadeUp .7s var(--ease-out) .08s both;
+}
+.hero h1 em{
+  color:var(--yellow);font-style:normal;position:relative;
+  text-shadow:0 0 40px rgba(245,197,24,0.3);
+}
+.hero-sub{
+  font-size:clamp(15px,1.6vw,17.5px);color:var(--gray2);line-height:1.68;
+  max-width:490px;margin-bottom:42px;
+  animation:fadeUp .7s var(--ease-out) .16s both;
+}
+.hero-sub strong{color:var(--white);font-weight:600}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap;animation:fadeUp .7s var(--ease-out) .24s both}
+.btn-primary{
+  background:var(--yellow);color:var(--navy);
+  padding:15px 32px;border-radius:11px;font-size:15px;font-weight:700;
+  text-decoration:none;letter-spacing:.01em;
+  transition:transform .22s var(--ease),box-shadow .28s var(--ease),background .2s;
+  display:inline-flex;align-items:center;gap:9px;
+  box-shadow:0 6px 20px rgba(245,197,24,0.26);
+}
+.btn-primary:hover{background:var(--yellow2);transform:translateY(-3px);box-shadow:var(--sh-yellow)}
+.btn-primary:active{transform:translateY(-1px)}
+.btn-secondary{
+  border:1.5px solid rgba(255,255,255,0.16);color:var(--white);
+  padding:15px 32px;border-radius:11px;font-size:15px;font-weight:500;
+  text-decoration:none;transition:all .25s var(--ease);background:rgba(255,255,255,0.02);
+}
+.btn-secondary:hover{border-color:var(--yellow);color:var(--yellow);background:rgba(245,197,24,0.06)}
+.hero-stats{
+  display:flex;gap:clamp(24px,4vw,48px);margin-top:58px;padding-top:42px;
+  border-top:1px solid var(--border2);flex-wrap:wrap;
+  animation:fadeUp .7s var(--ease-out) .32s both;
+}
+.stat-item .num{font-family:'Bebas Neue',sans-serif;font-size:46px;color:var(--yellow);letter-spacing:1px;line-height:1}
+.stat-item .lbl{font-size:11px;color:var(--gray);font-weight:600;margin-top:6px;letter-spacing:.08em;text-transform:uppercase}
+.hero-visual{
+  position:absolute;right:calc(var(--pad-x) - 10px);top:50%;transform:translateY(-50%);
+  width:min(40vw,470px);height:min(40vw,470px);
+  border-radius:50%;border:1px solid rgba(245,197,24,0.12);
+  display:flex;align-items:center;justify-content:center;z-index:1;
+  animation:fadeIn 1.2s var(--ease-out) .3s both;
+}
+.hero-visual::before{content:'';position:absolute;inset:26px;border-radius:50%;border:1px dashed rgba(245,197,24,0.1);animation:spin 26s linear infinite}
+.hero-visual::after{content:'';position:absolute;inset:56px;border-radius:50%;background:radial-gradient(circle,rgba(245,197,24,0.08) 0%,transparent 68%)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.car-icon{font-size:clamp(82px,9vw,132px);z-index:2;animation:float 4.5s ease-in-out infinite;position:relative;filter:drop-shadow(0 16px 30px rgba(0,0,0,0.4))}
+@keyframes float{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-16px) rotate(-1.5deg)}}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+/* ─────────────────────────────────────────  SECCIONES  ── */
+section{padding:clamp(64px,9vw,108px) var(--pad-x);position:relative}
+.stag{
+  display:inline-flex;align-items:center;gap:10px;
+  color:var(--yellow);font-size:11px;font-weight:700;
+  letter-spacing:.16em;text-transform:uppercase;margin-bottom:16px;
+}
+.stag::before{content:'';width:26px;height:2px;background:var(--yellow);border-radius:1px}
+.stitle{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(38px,5.4vw,64px);letter-spacing:1px;line-height:.98;margin-bottom:16px;
+}
+.stitle em{color:var(--yellow);font-style:normal}
+.ssub{color:var(--gray2);font-size:clamp(14px,1.5vw,16px);line-height:1.62;max-width:560px}
+
+/* ──────────────────────────────────────────  SERVICIOS  ── */
+#servicios{background:var(--navy2)}
+.vtabs{display:flex;gap:9px;margin:40px 0 34px;flex-wrap:wrap}
+.vtab{
+  padding:10px 22px;border-radius:10px;font-size:13px;font-weight:600;
+  border:1.5px solid var(--border2);cursor:pointer;background:transparent;color:var(--gray2);
+  transition:all .22s var(--ease);letter-spacing:.01em;
+}
+.vtab:hover{border-color:rgba(245,197,24,0.4);color:var(--white)}
+.vtab.active{background:var(--yellow);border-color:var(--yellow);color:var(--navy);box-shadow:0 4px 14px rgba(245,197,24,0.28)}
+.svc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(258px,1fr));gap:16px}
+.svc-card{
+  background:var(--card);border:1px solid var(--border2);border-radius:16px;
+  padding:28px;transition:transform .3s var(--ease),border-color .3s var(--ease),box-shadow .3s var(--ease);
+  position:relative;overflow:hidden;
+}
+.svc-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--yellow),var(--yellow-deep));transform:scaleX(0);transition:transform .35s var(--ease);transform-origin:left}
+.svc-card:hover{border-color:rgba(245,197,24,0.32);transform:translateY(-6px);box-shadow:var(--sh-md)}
+.svc-card:hover::before,.svc-card.feat::before{transform:scaleX(1)}
+.svc-card.feat{border-color:rgba(245,197,24,0.4);background:linear-gradient(160deg,rgba(245,197,24,0.07),var(--card) 60%)}
+.sc-badge{display:inline-block;background:rgba(245,197,24,0.16);color:var(--yellow);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 11px;border-radius:5px;margin-bottom:14px}
+.sc-name{font-family:'Bebas Neue',sans-serif;font-size:27px;letter-spacing:1px;margin-bottom:8px}
+.sc-desc{font-size:13px;color:var(--gray);line-height:1.58;margin-bottom:18px}
+.sc-inc{list-style:none;margin-bottom:20px}
+.sc-inc li{font-size:13px;color:var(--gray2);padding:4px 0;display:flex;align-items:center;gap:9px}
+.sc-inc li::before{content:'✓';color:var(--yellow);font-weight:700;font-size:12px;flex-shrink:0}
+.sc-price-box{background:rgba(255,255,255,0.035);border:1px solid var(--border3);border-radius:10px;padding:13px 16px;text-align:center}
+.sc-price-box .pv{font-size:10px;color:var(--gray);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}
+.sc-price-box .pn{font-family:'Bebas Neue',sans-serif;font-size:29px;color:var(--white);letter-spacing:1px}
+.sc-price-box .pn span{font-size:12px;font-family:'DM Sans',sans-serif;color:var(--gray)}
+
+/* ────────────────────────────────────────────  RESERVAS  ── */
+#reservas{background:var(--navy)}
+.res-tabs{
+  display:flex;gap:0;margin:40px auto 30px;max-width:460px;
+  background:var(--card);border:1px solid var(--border2);border-radius:13px;padding:5px;
+  box-shadow:var(--sh-sm);
+}
+.res-tab{
+  flex:1;padding:12px 16px;border-radius:9px;font-size:13px;font-weight:700;
+  border:none;background:transparent;color:var(--gray2);cursor:pointer;
+  transition:all .25s var(--ease);display:flex;align-items:center;justify-content:center;gap:8px;letter-spacing:.02em;
+}
+.res-tab.active{background:var(--yellow);color:var(--navy);box-shadow:0 4px 12px rgba(245,197,24,0.3)}
+.res-tab:not(.active):hover{color:var(--white)}
+.res-tab-icon{font-size:16px}
+.res-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start}
+.calendar-wrap{background:var(--card);border:1px solid var(--border2);border-radius:18px;overflow:hidden;box-shadow:var(--sh-md)}
+.cal-header{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid var(--border2)}
+.cal-header h3{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1px}
+.cal-nav{display:flex;gap:8px}
+.cal-btn{background:var(--navy3);border:none;color:var(--white);width:34px;height:34px;border-radius:8px;cursor:pointer;font-size:14px;transition:all .2s var(--ease);display:flex;align-items:center;justify-content:center}
+.cal-btn:hover{background:var(--yellow);color:var(--navy);transform:translateY(-1px)}
+.cal-days-header{display:grid;grid-template-columns:repeat(7,1fr);padding:14px 16px 4px;gap:4px}
+.cal-days-header span{text-align:center;font-size:11px;font-weight:700;color:var(--gray);letter-spacing:.05em;text-transform:uppercase}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);padding:4px 16px 16px;gap:5px}
+.cal-day{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:9px;font-size:13px;font-weight:500;cursor:pointer;transition:all .2s var(--ease);position:relative;border:1px solid transparent}
+.cal-day:hover:not(.empty):not(.past){background:rgba(245,197,24,0.12);border-color:rgba(245,197,24,0.35);color:var(--yellow);transform:scale(1.06)}
+.cal-day.empty{cursor:default;opacity:0}
+.cal-day.past{opacity:.28;cursor:not-allowed}
+.cal-day.today{background:rgba(245,197,24,0.16);border-color:var(--yellow);color:var(--yellow);font-weight:700}
+.cal-day.selected{background:var(--yellow);color:var(--navy);font-weight:700;box-shadow:0 4px 12px rgba(245,197,24,0.4)}
+.cal-day.full::after,.cal-day.busy::after,.cal-day.available::after{content:'';position:absolute;bottom:5px;left:50%;transform:translateX(-50%);width:5px;height:5px;border-radius:50%}
+.cal-day.full::after{background:var(--red)}
+.cal-day.busy::after{background:var(--orange)}
+.cal-day.available::after{background:var(--green)}
+.cal-legend{display:flex;gap:16px;padding:0 16px 18px;flex-wrap:wrap}
+.cal-legend span{display:flex;align-items:center;gap:7px;font-size:11px;color:var(--gray)}
+.cal-legend span::before{content:'';width:8px;height:8px;border-radius:50%}
+.cal-legend .leg-av::before{background:var(--green)}
+.cal-legend .leg-bu::before{background:var(--orange)}
+.cal-legend .leg-fu::before{background:var(--red)}
+.res-form{background:var(--card);border:1px solid var(--border2);border-radius:18px;padding:28px;box-shadow:var(--sh-md)}
+.res-form h3{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1px;margin-bottom:6px}
+.res-form .rf-sub{font-size:13px;color:var(--gray);margin-bottom:22px}
+.rf-selected{background:rgba(245,197,24,0.09);border:1px solid rgba(245,197,24,0.28);border-radius:10px;padding:12px 16px;margin-bottom:20px;font-size:13px;color:var(--yellow);font-weight:600;display:none}
+.rf-selected.show{display:block;animation:fadeUp .3s var(--ease-out)}
+.fg{margin-bottom:15px}
+.fg label{display:block;font-size:11px;font-weight:700;color:var(--gray2);letter-spacing:.08em;text-transform:uppercase;margin-bottom:7px}
+.fg input,.fg select,.fg textarea{
+  width:100%;background:var(--navy);border:1.5px solid var(--border2);border-radius:10px;
+  padding:11px 14px;font-size:14px;color:var(--white);font-family:'DM Sans',sans-serif;
+  transition:border-color .2s var(--ease),box-shadow .2s var(--ease);outline:none;
+}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--yellow);box-shadow:0 0 0 3px rgba(245,197,24,0.12)}
+.fg input::placeholder{color:var(--gray-dim)}
+.fg select option{background:var(--navy2)}
+.time-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
+.time-slot{padding:9px 4px;border-radius:8px;font-size:12px;font-weight:600;border:1.5px solid var(--border2);cursor:pointer;background:transparent;color:var(--gray2);transition:all .2s var(--ease);text-align:center}
+.time-slot:hover:not(.ts-full){border-color:var(--yellow);color:var(--yellow);transform:translateY(-1px)}
+.time-slot.ts-selected{background:var(--yellow);border-color:var(--yellow);color:var(--navy);box-shadow:0 3px 10px rgba(245,197,24,0.3)}
+.time-slot.ts-full{opacity:.32;cursor:not-allowed;text-decoration:line-through}
+.res-disclaimer{background:rgba(245,197,24,0.05);border:1px solid var(--border);border-radius:10px;padding:12px 15px;margin-bottom:18px;font-size:12px;color:var(--gray);line-height:1.6}
+.res-disclaimer a{color:var(--yellow);cursor:pointer;text-decoration:underline}
+.res-check{display:flex;align-items:flex-start;gap:11px;margin-bottom:18px;font-size:13px;color:var(--gray2)}
+.res-check input[type=checkbox]{width:17px;height:17px;accent-color:var(--yellow);margin-top:1px;flex-shrink:0;cursor:pointer}
+.res-check a{color:var(--yellow);cursor:pointer}
+.res-submit{width:100%;background:var(--yellow);color:var(--navy);padding:14px;border-radius:11px;font-size:14.5px;font-weight:700;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .22s var(--ease);box-shadow:0 6px 18px rgba(245,197,24,0.24)}
+.res-submit:hover{background:var(--yellow2);transform:translateY(-2px);box-shadow:var(--sh-yellow)}
+.res-submit:disabled{opacity:.38;cursor:not-allowed;transform:none;box-shadow:none}
+.lubri-info{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:22px;margin-bottom:26px;box-shadow:var(--sh-sm)}
+.lubri-services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(182px,1fr));gap:11px}
+.lubri-service{background:rgba(245,197,24,0.04);border:1px solid var(--border);border-radius:11px;padding:14px;transition:all .2s var(--ease)}
+.lubri-service:hover{border-color:rgba(245,197,24,0.3);transform:translateY(-2px)}
+.ls-name{font-size:13px;font-weight:700;margin-bottom:5px;display:flex;align-items:center;gap:7px}
+.ls-dur{font-size:11px;color:var(--gray)}
+.ls-price{font-family:'Bebas Neue',sans-serif;font-size:19px;color:var(--yellow);letter-spacing:1px;margin-top:7px}
+
+/* ───────────────────────────────────────  SUSCRIPCIONES  ── */
+#suscripciones{background:var(--navy2)}
+.plans-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(288px,1fr));gap:20px;margin-top:44px}
+.plan-card{border-radius:18px;border:1.5px solid var(--border2);overflow:hidden;transition:transform .3s var(--ease),box-shadow .3s var(--ease);background:var(--card)}
+.plan-card:hover{transform:translateY(-8px);box-shadow:var(--sh-lg)}
+.plan-card.feat{border-color:var(--yellow);box-shadow:0 0 0 1px var(--yellow),var(--sh-md)}
+.plan-hd{padding:26px 26px 20px;position:relative}
+.plan-hd.esen{background:linear-gradient(150deg,var(--navy2),var(--navy3))}
+.plan-hd.comp{background:linear-gradient(150deg,#211d07,#332a0b)}
+.plan-hd.prem{background:linear-gradient(150deg,#1e0d0d,#301616)}
+.plan-pill{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;padding:4px 12px;border-radius:100px;margin-bottom:12px}
+.plan-pill.esen{background:rgba(245,197,24,0.16);color:var(--yellow)}
+.plan-pill.comp{background:rgba(245,197,24,0.26);color:var(--yellow)}
+.plan-pill.prem{background:rgba(255,120,120,0.16);color:#ffb0b0}
+.plan-name{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:2px;margin-bottom:4px}
+.plan-lavs{font-size:12.5px;color:var(--gray);margin-bottom:13px}
+.plan-pr{display:flex;align-items:baseline;gap:7px}
+.plan-big{font-family:'Bebas Neue',sans-serif;font-size:46px;color:var(--yellow);letter-spacing:1px;line-height:1}
+.plan-unit{font-size:13px;color:var(--gray)}
+.plan-save{font-size:12px;margin-top:6px;opacity:.78}
+.plan-bd{padding:22px 26px;background:var(--card)}
+.pvtabs{display:flex;gap:6px;margin-bottom:18px;flex-wrap:wrap}
+.pvtab{padding:5px 11px;border-radius:6px;font-size:11px;font-weight:600;border:1px solid var(--border2);cursor:pointer;background:transparent;color:var(--gray2);transition:all .2s var(--ease)}
+.pvtab:hover{border-color:rgba(245,197,24,0.4);color:var(--yellow)}
+.pvtab.active{background:rgba(245,197,24,0.16);border-color:rgba(245,197,24,0.45);color:var(--yellow)}
+.pf{display:flex;align-items:flex-start;gap:10px;padding:7px 0;border-bottom:1px solid var(--border3);font-size:13px;color:var(--gray2)}
+.pf:last-of-type{border:none}
+.pf .ck{color:var(--yellow);flex-shrink:0;margin-top:1px;font-weight:700}
+.plan-btn{display:block;text-align:center;margin-top:18px;background:var(--yellow);color:var(--navy);padding:13px;border-radius:11px;font-size:14px;font-weight:700;text-decoration:none;transition:all .22s var(--ease);box-shadow:0 5px 16px rgba(245,197,24,0.22)}
+.plan-btn:hover{background:var(--yellow2);transform:translateY(-2px);box-shadow:var(--sh-yellow)}
+.plan-btn.out{background:transparent;color:var(--yellow);border:1.5px solid var(--yellow);box-shadow:none}
+.plan-btn.out:hover{background:rgba(245,197,24,0.1)}
+
+/* ─────────────────────────────────────────  FIDELIDAD  ── */
+#fidelidad{background:var(--navy)}
+.fid-hero{
+  background:linear-gradient(150deg,rgba(245,197,24,0.09),var(--card) 55%);
+  border:1.5px solid var(--border);border-radius:22px;padding:clamp(28px,4vw,44px);margin-top:44px;
+  display:grid;grid-template-columns:1.5fr 1fr;gap:36px;align-items:center;position:relative;overflow:hidden;
+  box-shadow:var(--sh-md);
+}
+.fid-hero::before{content:'';position:absolute;top:-60px;right:-60px;width:220px;height:220px;background:radial-gradient(circle,rgba(245,197,24,0.1),transparent 70%);border-radius:50%}
+.fid-hero::after{content:'';position:absolute;bottom:-40px;left:-40px;width:140px;height:140px;background:radial-gradient(circle,rgba(245,197,24,0.06),transparent 70%);border-radius:50%}
+.fid-hero-text{position:relative;z-index:2}
+.fid-hero-text h3{font-family:'Bebas Neue',sans-serif;font-size:clamp(32px,4vw,42px);letter-spacing:1px;line-height:.98;margin-bottom:14px}
+.fid-hero-text h3 em{color:var(--yellow);font-style:normal}
+.fid-hero-text p{font-size:14px;color:var(--gray2);line-height:1.72;margin-bottom:18px}
+.fid-hero-text p strong{color:var(--white)}
+.fid-card-visual{
+  position:relative;z-index:2;
+  background:linear-gradient(150deg,#241d05,#0d1d34);border:1.5px solid rgba(245,197,24,0.42);
+  border-radius:16px;padding:24px;box-shadow:var(--sh-lg);
+  transform:rotate(-3deg);transition:transform .4s var(--ease);
+}
+.fid-card-visual:hover{transform:rotate(0) scale(1.02)}
+.fc-brand{font-family:'Bebas Neue',sans-serif;font-size:19px;letter-spacing:3px;color:var(--yellow);margin-bottom:20px;display:flex;align-items:center;gap:9px}
+.fc-brand .bar{width:3px;height:17px;background:var(--yellow);box-shadow:0 0 10px var(--yellow-glow)}
+.fc-label{font-size:10px;color:var(--gray);text-transform:uppercase;letter-spacing:.1em;margin-bottom:5px}
+.fc-points{font-family:'Bebas Neue',sans-serif;font-size:44px;color:var(--yellow);letter-spacing:1px;line-height:1;margin-bottom:16px;text-shadow:0 0 24px rgba(245,197,24,0.4)}
+.fc-name{font-size:14px;font-weight:600;margin-bottom:4px}
+.fc-mat{font-size:11px;color:var(--gray);font-family:monospace;letter-spacing:1.5px}
+.fid-niveles{display:grid;grid-template-columns:repeat(auto-fit,minmax(222px,1fr));gap:15px;margin-top:38px}
+.nivel-card{background:var(--card);border:1px solid var(--border2);border-radius:16px;padding:24px;position:relative;overflow:hidden;transition:transform .3s var(--ease),border-color .3s var(--ease),box-shadow .3s var(--ease)}
+.nivel-card:hover{transform:translateY(-6px);border-color:rgba(245,197,24,0.32);box-shadow:var(--sh-md)}
+.nivel-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px}
+.nivel-card.bronze::before{background:linear-gradient(90deg,#cd7f32,#a06425)}
+.nivel-card.silver::before{background:linear-gradient(90deg,#d4d4d4,#9a9a9a)}
+.nivel-card.gold::before{background:linear-gradient(90deg,var(--yellow),var(--yellow-deep))}
+.nivel-card.platinum::before{background:linear-gradient(90deg,#eceae6,#a8a8a4)}
+.nivel-icon{font-size:32px;margin-bottom:11px;filter:drop-shadow(0 4px 8px rgba(0,0,0,0.3))}
+.nivel-name{font-family:'Bebas Neue',sans-serif;font-size:23px;letter-spacing:1.5px;margin-bottom:5px}
+.nivel-name.bronze{color:#e09550}
+.nivel-name.silver{color:#d4d4d4}
+.nivel-name.gold{color:var(--yellow)}
+.nivel-name.platinum{color:#eceae6}
+.nivel-puntos{font-size:11px;color:var(--gray);margin-bottom:15px;font-weight:600}
+.nivel-list{list-style:none;display:flex;flex-direction:column;gap:7px}
+.nivel-list li{font-size:12px;color:var(--gray2);padding-left:19px;position:relative;line-height:1.5}
+.nivel-list li::before{content:'★';color:var(--yellow);position:absolute;left:0;top:0;font-size:11px}
+.fid-como{display:grid;grid-template-columns:1fr 1fr 1fr;gap:15px;margin-top:38px}
+.fid-paso{background:var(--card);border:1px solid var(--border2);border-radius:16px;padding:22px;text-align:center;transition:all .25s var(--ease)}
+.fid-paso:hover{border-color:rgba(245,197,24,0.3);transform:translateY(-4px)}
+.fid-paso-num{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;background:var(--yellow);color:var(--navy);border-radius:50%;font-family:'Bebas Neue',sans-serif;font-size:20px;margin-bottom:12px;box-shadow:0 6px 16px rgba(245,197,24,0.3)}
+.fid-paso h4{font-size:14px;font-weight:700;margin-bottom:7px}
+.fid-paso p{font-size:12.5px;color:var(--gray);line-height:1.55}
+.fid-canjes{display:grid;grid-template-columns:repeat(auto-fit,minmax(202px,1fr));gap:13px;margin-top:24px}
+.canje{background:var(--card);border:1px solid var(--border2);border-radius:14px;padding:17px;transition:all .25s var(--ease)}
+.canje:hover{border-color:rgba(245,197,24,0.32);transform:translateY(-3px);box-shadow:var(--sh-sm)}
+.canje-icon{font-size:26px;margin-bottom:9px}
+.canje-name{font-size:13px;font-weight:700;margin-bottom:5px}
+.canje-desc{font-size:11.5px;color:var(--gray);line-height:1.5;margin-bottom:11px}
+.canje-cost{font-family:'Bebas Neue',sans-serif;font-size:21px;color:var(--yellow);letter-spacing:1px}
+.canje-cost span{font-size:11px;font-family:'DM Sans',sans-serif;color:var(--gray)}
+
+/* ──────────────────────────────────────────────  GALERÍA  ── */
+#galeria{background:var(--navy2)}
+.gallery-filter{display:flex;gap:9px;margin:32px 0 12px;flex-wrap:wrap}
+.gf-btn{padding:8px 18px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid var(--border2);cursor:pointer;background:transparent;color:var(--gray2);transition:all .22s var(--ease)}
+.gf-btn:hover{border-color:rgba(245,197,24,0.4);color:var(--white)}
+.gf-btn.active{background:var(--yellow);border-color:var(--yellow);color:var(--navy);box-shadow:0 4px 12px rgba(245,197,24,0.26)}
+.gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:172px;gap:14px;margin-top:24px}
+.gallery-item{border-radius:15px;overflow:hidden;position:relative;cursor:pointer;border:1px solid var(--border2);transition:transform .3s var(--ease),border-color .3s var(--ease),box-shadow .3s var(--ease);background:linear-gradient(150deg,var(--navy3),var(--card));display:flex;align-items:center;justify-content:center}
+.gallery-item:hover{transform:scale(1.025);border-color:rgba(245,197,24,0.35);box-shadow:var(--sh-md);z-index:2}
+.gallery-item .gi-icon{font-size:46px;opacity:.38;transition:all .35s var(--ease)}
+.gallery-item:hover .gi-icon{transform:scale(1.18);opacity:.66}
+.gallery-item .gi-grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(245,197,24,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(245,197,24,0.04) 1px,transparent 1px);background-size:22px 22px}
+.gallery-item .gi-overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(8,20,34,0.96));padding:16px;display:flex;flex-direction:column;justify-content:flex-end;opacity:0;transition:opacity .3s var(--ease)}
+.gallery-item:hover .gi-overlay{opacity:1}
+.gi-overlay .gi-title{font-size:13px;font-weight:700;margin-bottom:3px}
+.gi-overlay .gi-cat{font-size:10px;color:var(--yellow);text-transform:uppercase;letter-spacing:.07em}
+.gi-tag{position:absolute;top:11px;left:11px;background:rgba(8,20,34,0.86);color:var(--yellow);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:4px 9px;border-radius:5px;backdrop-filter:blur(8px);z-index:2}
+.gallery-item.wide{grid-column:span 2}
+.gallery-item.tall{grid-row:span 2}
+
+/* ────────────────────────────────────────────  DETAILING  ── */
+#detailing{background:var(--navy)}
+.det-grid{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:start;margin-top:44px}
+.det-list{display:flex;flex-direction:column;gap:13px}
+.det-item{display:flex;justify-content:space-between;align-items:center;background:var(--card);border:1px solid var(--border2);border-radius:14px;padding:17px 21px;transition:all .25s var(--ease);gap:14px}
+.det-item:hover{border-color:rgba(245,197,24,0.3);transform:translateX(4px)}
+.di-name{font-size:14.5px;font-weight:600;margin-bottom:4px}
+.di-desc{font-size:12px;color:var(--gray)}
+.di-ps{display:flex;gap:11px;flex-wrap:wrap;flex-shrink:0}
+.dp .dv{font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--yellow);letter-spacing:1px}
+.dp .dl{font-size:10px;color:var(--gray);text-transform:uppercase;letter-spacing:.04em;text-align:center}
+.det-aside{position:sticky;top:96px;display:flex;flex-direction:column;gap:16px}
+.det-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:26px;box-shadow:var(--sh-sm)}
+.det-card h3{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:1px;margin-bottom:9px}
+.det-card p{font-size:13.5px;color:var(--gray);line-height:1.62;margin-bottom:18px}
+.det-list2{list-style:none;display:flex;flex-direction:column;gap:9px}
+.det-list2 li{display:flex;align-items:center;gap:11px;font-size:13px;color:var(--gray2)}
+.det-list2 li::before{content:'→';color:var(--yellow);font-weight:700}
+.adics{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.adic{background:rgba(245,197,24,0.05);border:1px solid var(--border);border-radius:11px;padding:12px;transition:all .2s var(--ease)}
+.adic:hover{border-color:rgba(245,197,24,0.3)}
+.adic .an{font-size:13px;font-weight:600;margin-bottom:4px}
+.adic .ap{font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--yellow);letter-spacing:1px}
+
+/* ────────────────────────────────────────────  CAFETERÍA  ── */
+#cafeteria{background:var(--navy2)}
+.cafe-intro{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center;margin-top:44px;margin-bottom:52px}
+.cafe-text p{font-size:14.5px;color:var(--gray2);line-height:1.78;margin-bottom:13px}
+.cafe-text p strong{color:var(--white)}
+.cafe-visual{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:32px;text-align:center;box-shadow:var(--sh-sm)}
+.cafe-visual .big-icon{font-size:70px;margin-bottom:12px;filter:drop-shadow(0 8px 16px rgba(0,0,0,0.3))}
+.cafe-visual p{font-size:13.5px;color:var(--gray);line-height:1.6}
+.menu-tabs{display:flex;gap:9px;margin-bottom:26px;flex-wrap:wrap}
+.menu-tab{padding:10px 22px;border-radius:9px;font-size:13px;font-weight:600;border:1.5px solid var(--border2);cursor:pointer;background:transparent;color:var(--gray2);transition:all .22s var(--ease)}
+.menu-tab:hover{border-color:rgba(245,197,24,0.4);color:var(--white)}
+.menu-tab.active{background:var(--yellow);border-color:var(--yellow);color:var(--navy);box-shadow:0 4px 12px rgba(245,197,24,0.26)}
+.menu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(222px,1fr));gap:14px}
+.menu-item{background:var(--card);border:1px solid var(--border2);border-radius:14px;padding:20px;transition:all .25s var(--ease);position:relative}
+.menu-item:hover{border-color:rgba(245,197,24,0.3);transform:translateY(-4px);box-shadow:var(--sh-sm)}
+.menu-item.promo{border-color:rgba(245,197,24,0.4)}
+.promo-badge{position:absolute;top:-10px;right:15px;background:var(--yellow);color:var(--navy);font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:4px 11px;border-radius:100px;box-shadow:0 4px 10px rgba(245,197,24,0.3)}
+.mi-icon{font-size:27px;margin-bottom:9px}
+.mi-name{font-size:14px;font-weight:700;margin-bottom:5px}
+.mi-desc{font-size:11.5px;color:var(--gray);line-height:1.5;margin-bottom:11px}
+.mi-price{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--yellow);letter-spacing:1px}
+.mi-price span{font-size:11px;font-family:'DM Sans',sans-serif;color:var(--gray)}
+
+/* ──────────────────────────────────────────────  PISTA  ── */
+#pista{background:var(--navy)}
+.servicios-pista{display:grid;grid-template-columns:repeat(auto-fit,minmax(222px,1fr));gap:15px;margin-top:40px}
+.sp-card{background:var(--card);border:1px solid var(--border2);border-radius:16px;padding:24px;transition:all .3s var(--ease);position:relative;overflow:hidden}
+.sp-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--yellow),var(--yellow-deep));transform:scaleX(0);transition:transform .35s var(--ease);transform-origin:left}
+.sp-card:hover{border-color:rgba(245,197,24,0.3);transform:translateY(-5px);box-shadow:var(--sh-md)}
+.sp-card:hover::before{transform:scaleX(1)}
+.sp-icon{font-size:30px;margin-bottom:11px;filter:drop-shadow(0 4px 8px rgba(0,0,0,0.25))}
+.sp-name{font-family:'Bebas Neue',sans-serif;font-size:21px;letter-spacing:1px;margin-bottom:7px}
+.sp-desc{font-size:13px;color:var(--gray);line-height:1.52;margin-bottom:13px}
+.sp-price{font-family:'Bebas Neue',sans-serif;font-size:25px;color:var(--yellow);letter-spacing:1px}
+.sp-price span{font-size:11px;font-family:'DM Sans',sans-serif;color:var(--gray)}
+
+/* ────────────────────────────────────────────  SUCURSALES  ── */
+#sucursales{background:var(--navy2)}
+.loc-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:44px}
+.loc-card{background:var(--card);border:1px solid var(--border2);border-radius:18px;overflow:hidden;transition:transform .3s var(--ease),border-color .3s var(--ease),box-shadow .3s var(--ease)}
+.loc-card:hover{transform:translateY(-5px);border-color:rgba(245,197,24,0.28);box-shadow:var(--sh-md)}
+.loc-map{height:170px;background:var(--navy3);display:flex;align-items:center;justify-content:center;font-size:44px;position:relative;overflow:hidden}
+.loc-map::before{content:'';position:absolute;inset:0;background:linear-gradient(150deg,rgba(245,197,24,0.06),transparent)}
+.loc-map-grid{position:absolute;inset:0;background-image:linear-gradient(var(--border2) 1px,transparent 1px),linear-gradient(90deg,var(--border2) 1px,transparent 1px);background-size:28px 28px}
+.loc-info{padding:24px}
+.loc-badge{display:inline-block;background:rgba(245,197,24,0.13);color:var(--yellow);font-size:10px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;padding:4px 11px;border-radius:5px;margin-bottom:11px}
+.loc-name{font-family:'Bebas Neue',sans-serif;font-size:25px;letter-spacing:1px;margin-bottom:6px}
+.loc-addr{font-size:13.5px;color:var(--gray);margin-bottom:15px;line-height:1.5}
+.loc-hrs{background:rgba(245,197,24,0.05);border:1px solid var(--border);border-radius:10px;padding:13px;margin-bottom:16px}
+.lhr{display:flex;justify-content:space-between;font-size:13px;padding:3px 0}
+.lhr .ld{color:var(--gray2)}.lhr .lt{color:var(--yellow);font-weight:600}
+.loc-btn{display:inline-flex;align-items:center;gap:8px;background:var(--yellow);color:var(--navy);padding:11px 20px;border-radius:10px;font-size:13px;font-weight:700;text-decoration:none;transition:all .22s var(--ease);box-shadow:0 4px 14px rgba(245,197,24,0.24)}
+.loc-btn:hover{background:var(--yellow2);transform:translateY(-2px);box-shadow:var(--sh-yellow)}
+
+/* ───────────────────────────────────────────  NOSOTROS  ── */
+#nosotros{background:var(--navy)}
+.ab-grid{display:grid;grid-template-columns:1fr 1fr;gap:58px;align-items:center;margin-top:44px}
+.ab-text p{font-size:15px;color:var(--gray2);line-height:1.78;margin-bottom:15px}
+.ab-text p strong{color:var(--white)}
+.pillars{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-top:26px}
+.pillar{background:var(--card);border:1px solid var(--border2);border-radius:14px;padding:18px;transition:all .25s var(--ease)}
+.pillar:hover{border-color:rgba(245,197,24,0.3);transform:translateY(-3px)}
+.pillar .pi{font-size:25px;margin-bottom:8px}
+.pillar .pt{font-size:13.5px;font-weight:700;margin-bottom:5px}
+.pillar .pd{font-size:12px;color:var(--gray);line-height:1.5}
+.ab-visual{display:flex;flex-direction:column;gap:13px}
+.av-big{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:28px;text-align:center;box-shadow:var(--sh-sm)}
+.av-big .an{font-family:'Bebas Neue',sans-serif;font-size:50px;color:var(--yellow);letter-spacing:2px;line-height:1;text-shadow:0 0 30px rgba(245,197,24,0.3)}
+.av-big .al{font-size:13px;color:var(--gray);margin-top:6px}
+.av-row{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.av-item{background:var(--card);border:1px solid var(--border2);border-radius:14px;padding:18px;text-align:center;transition:all .25s var(--ease)}
+.av-item:hover{border-color:rgba(245,197,24,0.3);transform:translateY(-3px)}
+.av-item .an2{font-family:'Bebas Neue',sans-serif;font-size:32px;color:var(--yellow);letter-spacing:1px}
+.av-item .al2{font-size:12px;color:var(--gray);margin-top:4px}
+
+/* ────────────────────────────────────────────  CONTACTO  ── */
+#contacto{background:var(--navy2)}
+.ct-grid{display:grid;grid-template-columns:1fr 1fr;gap:44px;margin-top:44px;align-items:start}
+.ct-form{background:var(--card);border:1px solid var(--border2);border-radius:18px;padding:30px;box-shadow:var(--sh-md)}
+.ct-form h3{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1px;margin-bottom:20px}
+.ct-submit{width:100%;background:var(--yellow);color:var(--navy);padding:14px;border-radius:11px;font-size:14.5px;font-weight:700;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .22s var(--ease);box-shadow:0 6px 18px rgba(245,197,24,0.24)}
+.ct-submit:hover{background:var(--yellow2);transform:translateY(-2px);box-shadow:var(--sh-yellow)}
+.ct-info{display:flex;flex-direction:column;gap:13px}
+.ci{background:var(--card);border:1px solid var(--border2);border-radius:15px;padding:20px;transition:all .25s var(--ease)}
+.ci:hover{border-color:rgba(245,197,24,0.3);transform:translateY(-2px)}
+.ci .cii{font-size:24px;margin-bottom:7px}
+.ci .cit{font-size:14px;font-weight:700;margin-bottom:5px}
+.ci .cid{font-size:13px;color:var(--gray);line-height:1.62}
+.ci .cid a{color:var(--yellow);text-decoration:none;cursor:pointer}
+.ci .cid a:hover{text-decoration:underline}
+
+/* ─────────────────────────────────────────────  FOOTER  ── */
+footer{background:var(--navy2);border-top:1px solid var(--border2);padding:48px var(--pad-x) 28px}
+.ft-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:36px;margin-bottom:36px}
+.ft-brand .fn{font-family:'Bebas Neue',sans-serif;font-size:25px;letter-spacing:3px;margin-bottom:10px}
+.ft-brand p{font-size:13px;color:var(--gray);line-height:1.72;max-width:250px}
+.ft-col h4{font-size:11px;font-weight:700;color:var(--gray2);letter-spacing:.11em;text-transform:uppercase;margin-bottom:14px}
+.ft-col ul{list-style:none;display:flex;flex-direction:column;gap:9px}
+.ft-col ul a{font-size:13px;color:var(--gray);text-decoration:none;transition:color .2s var(--ease),padding-left .2s var(--ease);cursor:pointer}
+.ft-col ul a:hover{color:var(--yellow);padding-left:5px}
+.ft-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:24px;border-top:1px solid var(--border2);flex-wrap:wrap;gap:11px}
+.ft-bottom p{font-size:12px;color:var(--gray)}
+.ancap-tag{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--gray)}
+.ancap-dot{width:8px;height:8px;background:var(--yellow);border-radius:50%;box-shadow:0 0 8px var(--yellow-glow)}
+
+/* ──────────────────────────────────────────────  MODAL  ── */
+.modal-overlay{position:fixed;inset:0;background:rgba(4,10,18,0.82);z-index:500;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(8px)}
+.modal-overlay.open{display:flex;animation:fadeIn .25s var(--ease-out)}
+.modal{background:var(--navy2);border:1px solid var(--border);border-radius:22px;max-width:680px;width:100%;max-height:85vh;overflow:hidden;display:flex;flex-direction:column;box-shadow:var(--sh-lg);animation:modalUp .35s var(--ease-out)}
+@keyframes modalUp{from{opacity:0;transform:translateY(30px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+.modal-header{padding:24px 28px;border-bottom:1px solid var(--border2);display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
+.modal-header h2{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:1px}
+.modal-close{background:var(--navy3);border:none;color:var(--white);width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:16px;transition:all .2s var(--ease);display:flex;align-items:center;justify-content:center}
+.modal-close:hover{background:var(--red);color:white;transform:rotate(90deg)}
+.modal-body{padding:24px 28px;overflow-y:auto;flex:1}
+.modal-body h3{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:1px;color:var(--yellow);margin:20px 0 8px}
+.modal-body h3:first-child{margin-top:0}
+.modal-body p{font-size:14px;color:var(--gray2);line-height:1.72;margin-bottom:10px}
+.modal-body ul{padding-left:19px;margin-bottom:10px}
+.modal-body ul li{font-size:14px;color:var(--gray2);line-height:1.72;margin-bottom:5px}
+.modal-body .highlight{background:rgba(245,197,24,0.08);border-left:3px solid var(--yellow);padding:12px 16px;border-radius:0 10px 10px 0;margin:14px 0}
+.modal-body .highlight p{margin:0;font-size:13px;color:var(--white)}
+.modal-footer{padding:18px 28px;border-top:1px solid var(--border2);display:flex;gap:12px;flex-shrink:0}
+.modal-footer button{flex:1;padding:12px;border-radius:11px;font-size:14px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .22s var(--ease)}
+.modal-accept{background:var(--yellow);color:var(--navy);border:none;box-shadow:0 5px 16px rgba(245,197,24,0.24)}
+.modal-accept:hover{background:var(--yellow2);transform:translateY(-2px)}
+.modal-decline{background:transparent;color:var(--gray2);border:1.5px solid var(--border2)}
+.modal-decline:hover{border-color:var(--gray);color:var(--white)}
+
+/* ───────────────────────────────────────────  LIGHTBOX  ── */
+.lightbox{position:fixed;inset:0;background:rgba(4,10,18,0.96);z-index:600;display:none;align-items:center;justify-content:center;padding:40px;cursor:pointer}
+.lightbox.open{display:flex;animation:fadeIn .25s var(--ease-out)}
+.lb-content{background:var(--navy2);border:1px solid var(--border);border-radius:20px;padding:44px;max-width:600px;width:100%;text-align:center;cursor:default;box-shadow:var(--sh-lg);animation:modalUp .35s var(--ease-out)}
+.lb-icon{font-size:82px;margin-bottom:16px;filter:drop-shadow(0 10px 20px rgba(0,0,0,0.4))}
+.lb-title{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:1px;margin-bottom:7px}
+.lb-cat{font-size:13px;color:var(--yellow);text-transform:uppercase;letter-spacing:.07em;margin-bottom:15px}
+.lb-desc{font-size:14px;color:var(--gray2);line-height:1.62}
+
+/* ────────────────────────────────────────────────  TOAST  ── */
+.toast{position:fixed;bottom:26px;right:26px;z-index:999;background:var(--yellow);color:var(--navy);padding:14px 22px;border-radius:12px;font-size:14px;font-weight:700;transform:translateY(90px);opacity:0;transition:all .35s var(--ease-out);pointer-events:none;max-width:340px;box-shadow:var(--sh-lg)}
+.toast.show{transform:translateY(0);opacity:1}
+
+/* ─────────────────────────────────────────  ANIMACIÓN SCROLL  ── */
+.fi{opacity:0;transform:translateY(30px);transition:opacity .7s var(--ease-out),transform .7s var(--ease-out)}
+.fi.vis{opacity:1;transform:translateY(0)}
+
+/* ───────────────────────────────────────────  RESPONSIVE  ── */
+@media(max-width:980px){
+  .nav-links,.nav-cta{display:none}
+  .hamburger{display:flex}
+  .hero-visual{display:none}
+  .res-grid,.det-grid,.loc-grid,.ab-grid,.ct-grid,.cafe-intro,.fid-hero{grid-template-columns:1fr}
+  .plans-grid{grid-template-columns:1fr;max-width:440px;margin-left:auto;margin-right:auto}
+  .ft-grid{grid-template-columns:1fr 1fr}
+  .pillars{grid-template-columns:1fr 1fr}
+  .fid-card-visual{transform:rotate(0);max-width:340px;margin:0 auto}
+  .gallery-grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:150px}
+  .gallery-item.wide{grid-column:span 1}
+  .gallery-item.tall{grid-row:span 1}
+  .fid-como{grid-template-columns:1fr}
+  .det-aside{position:static}
+}
+@media(max-width:560px){
+  .hero-btns{flex-direction:column}
+  .btn-primary,.btn-secondary{text-align:center;justify-content:center}
+  .adics,.av-row{grid-template-columns:1fr 1fr}
+  .time-grid{grid-template-columns:repeat(3,1fr)}
+  .ft-grid{grid-template-columns:1fr}
+  .banner-text{font-size:12.5px}
+  .banner-text strong{font-size:16px}
+  .fid-niveles{grid-template-columns:1fr}
+}
+
+/* ────────────────────────────────────────  ACCESIBILIDAD  ── */
+:focus-visible{outline:2px solid var(--yellow);outline-offset:3px;border-radius:4px}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .fi{opacity:1;transform:none}
+}
+
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo"><div class="bar"></div>VEINTE&amp;30</a>
+  <ul class="nav-links">
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#reservas">Reservas</a></li>
+    <li><a href="#suscripciones">Planes</a></li>
+    <li><a href="#fidelidad">Fidelidad</a></li>
+    <li><a href="#galeria">Galería</a></li>
+    <li><a href="#cafeteria">Cafetería</a></li>
+    <li><a href="#sucursales">Sucursales</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+  <a href="#reservas" class="nav-cta">Reservar</a>
+  <button class="hamburger" onclick="document.getElementById('mm').classList.toggle('open')" aria-label="Menú">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mob-menu" id="mm">
+  <a href="#servicios" onclick="closeMob()">Servicios</a>
+  <a href="#reservas" onclick="closeMob()">Reservas</a>
+  <a href="#suscripciones" onclick="closeMob()">Suscripciones</a>
+  <a href="#fidelidad" onclick="closeMob()">Programa fidelidad</a>
+  <a href="#galeria" onclick="closeMob()">Galería</a>
+  <a href="#detailing" onclick="closeMob()">Car Detail</a>
+  <a href="#cafeteria" onclick="closeMob()">Cafetería</a>
+  <a href="#pista" onclick="closeMob()">Pista</a>
+  <a href="#sucursales" onclick="closeMob()">Sucursales</a>
+  <a href="#contacto" onclick="closeMob()">Contacto</a>
+</div>
+
+<!-- BANNER PROMOCIONES ROTATIVO -->
+<div class="banner-wrap">
+  <div class="banner-track" id="bannerTrack">
+    <div class="banner-slide b1">
+      <span class="banner-icon">🎉</span>
+      <span class="banner-text"><strong>15% OFF</strong> en tu primer lavado al suscribirte hoy</span>
+      <a href="#suscripciones" class="banner-cta">Ver planes →</a>
+    </div>
+    <div class="banner-slide b2">
+      <span class="banner-icon">🛢️</span>
+      <span class="banner-text"><strong>NUEVO</strong> Reservá tu cambio de aceite online</span>
+      <a href="#reservas" class="banner-cta">Reservar →</a>
+    </div>
+    <div class="banner-slide b3">
+      <span class="banner-icon">⭐</span>
+      <span class="banner-text"><strong>GANÁ PUNTOS</strong> en cada servicio con el programa de fidelidad</span>
+      <a href="#fidelidad" class="banner-cta">Unirme →</a>
+    </div>
+    <div class="banner-slide b4">
+      <span class="banner-icon">⛽</span>
+      <span class="banner-text"><strong>CARGÁ Y LAVÁ</strong> $100 de descuento con carga +30L</span>
+      <a href="#pista" class="banner-cta">Más info →</a>
+    </div>
+  </div>
+  <div class="banner-dots" id="bannerDots"></div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div><div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow"><span class="dot"></span>ANCAP · Punta del Este</div>
+    <h1>TU AUTO<br><em>SIEMPRE</em><br>IMPECABLE</h1>
+    <p class="hero-sub">Lavadero automático, lubricentro, cafetería y estación ANCAP. Todo lo que necesita tu auto en un solo lugar — con <strong>tecnología ISTOBAL M'NEX22</strong>.</p>
+    <div class="hero-btns">
+      <a href="#reservas" class="btn-primary">Reservar turno →</a>
+      <a href="#servicios" class="btn-secondary">Ver servicios</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item"><div class="num">2</div><div class="lbl">Sucursales</div></div>
+      <div class="stat-item"><div class="num">+10K</div><div class="lbl">Lavados/año</div></div>
+      <div class="stat-item"><div class="num">7</div><div class="lbl">Días/semana</div></div>
+      <div class="stat-item"><div class="num">ANCAP</div><div class="lbl">Estación oficial</div></div>
+    </div>
+  </div>
+  <div class="hero-visual"><div class="car-icon">🚗</div></div>
+</section>
+
+<!-- SERVICIOS -->
+<section id="servicios">
+  <div class="fi">
+    <div class="stag">Car Wash</div>
+    <h2 class="stitle">NUESTROS <em>SERVICIOS</em></h2>
+    <p class="ssub">Todos los lavados incluyen aspirado interior + vidrios + ruedas. Seleccioná el tipo de vehículo.</p>
+  </div>
+  <div class="vtabs">
+    <button class="vtab active" onclick="setV('c',this)">🚗 Compacto</button>
+    <button class="vtab" onclick="setV('a',this)">🚙 Auto / Crossover</button>
+    <button class="vtab" onclick="setV('s',this)">🚐 SUV / Pick-Up</button>
+    <button class="vtab" onclick="setV('x',this)">🚌 XXL</button>
+  </div>
+  <div class="svc-grid" id="svcGrid"></div>
+  <p style="margin-top:16px;font-size:12px;color:var(--gray)">⚠ Puede aplicar adicional por exceso de suciedad. Precios en pesos uruguayos.</p>
+</section>
+
+<!-- RESERVAS UNIFICADAS LAVADERO + LUBRICENTRO -->
+<section id="reservas">
+  <div class="fi">
+    <div class="stag">Agenda online</div>
+    <h2 class="stitle">RESERVÁ <em>TU TURNO</em></h2>
+    <p class="ssub">Elegí el servicio, el día y el horario. Lavadero o lubricentro — todo en un mismo lugar.</p>
+  </div>
+
+  <div class="res-tabs">
+    <button class="res-tab active" onclick="setResType('lavadero',this)"><span class="res-tab-icon">🚗</span>Lavadero</button>
+    <button class="res-tab" onclick="setResType('lubricentro',this)"><span class="res-tab-icon">🛢️</span>Lubricentro</button>
+  </div>
+
+  <!-- Info Lubricentro (visible solo en modo lubricentro) -->
+  <div class="lubri-info" id="lubriInfo" style="display:none">
+    <div class="stag" style="margin-bottom:8px">Servicios del lubricentro</div>
+    <p style="font-size:13px;color:var(--gray);margin-bottom:14px;line-height:1.6">Cambios de aceite, filtros y servicios básicos del lubricentro. Reservá tu turno y evitá la espera.</p>
+    <div class="lubri-services-grid">
+      <div class="lubri-service">
+        <div class="ls-name">🛢️ Cambio de aceite</div>
+        <div class="ls-dur">Duración: 30 min</div>
+        <div class="ls-price">Desde $900</div>
+      </div>
+      <div class="lubri-service">
+        <div class="ls-name">🔧 Cambio de filtros</div>
+        <div class="ls-dur">Duración: 20 min</div>
+        <div class="ls-price">Desde $450</div>
+      </div>
+      <div class="lubri-service">
+        <div class="ls-name">⚙️ Aceite + filtros</div>
+        <div class="ls-dur">Duración: 45 min</div>
+        <div class="ls-price">Desde $1.250</div>
+      </div>
+      <div class="lubri-service">
+        <div class="ls-name">💧 Revisión de fluidos</div>
+        <div class="ls-dur">Duración: 20 min</div>
+        <div class="ls-price">$300</div>
+      </div>
+      <div class="lubri-service">
+        <div class="ls-name">🛡️ Colocación lubricantes</div>
+        <div class="ls-dur">Duración: 30 min</div>
+        <div class="ls-price">Consultar</div>
+      </div>
+      <div class="lubri-service">
+        <div class="ls-name">🔍 Revisión general</div>
+        <div class="ls-dur">Duración: 25 min</div>
+        <div class="ls-price">$400</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="res-grid fi">
+    <!-- Calendario -->
+    <div class="calendar-wrap">
+      <div class="cal-header">
+        <h3 id="calTitle">Mayo 2026</h3>
+        <div class="cal-nav">
+          <button class="cal-btn" onclick="changeMonth(-1)">&#8592;</button>
+          <button class="cal-btn" onclick="changeMonth(1)">&#8594;</button>
+        </div>
+      </div>
+      <div class="cal-days-header">
+        <span>Dom</span><span>Lun</span><span>Mar</span><span>Mié</span><span>Jue</span><span>Vie</span><span>Sáb</span>
+      </div>
+      <div class="cal-grid" id="calGrid"></div>
+      <div class="cal-legend">
+        <span class="leg-av">Disponible</span>
+        <span class="leg-bu">Pocos turnos</span>
+        <span class="leg-fu">Sin turnos</span>
+      </div>
+    </div>
+
+    <!-- Formulario -->
+    <div class="res-form">
+      <h3 id="resFormTitle">COMPLETAR RESERVA — LAVADERO</h3>
+      <p class="rf-sub">Seleccioná un día en el calendario para ver los turnos disponibles.</p>
+      <div class="rf-selected" id="rfSelected">📅 Seleccionando fecha...</div>
+
+      <div class="fg">
+        <label>Sucursal</label>
+        <select id="resSucursal" onchange="renderTimeSlots()">
+          <option value="">Elegí una sucursal</option>
+          <option value="2030">Las Focas / El Remanso (20/30)</option>
+          <option value="roos">Naciones Unidas / Roosevelt</option>
+        </select>
+      </div>
+
+      <div class="fg">
+        <label id="lblServicio">Servicio</label>
+        <select id="resServicio">
+          <option value="">Elegí un servicio</option>
+        </select>
+      </div>
+
+      <div class="fg">
+        <label>Turno disponible</label>
+        <div class="time-grid" id="timeGrid">
+          <div style="grid-column:1/-1;font-size:13px;color:var(--gray);padding:10px 0">Seleccioná sucursal y fecha primero</div>
+        </div>
+      </div>
+
+      <div class="fg">
+        <label>Nombre y apellido</label>
+        <input type="text" id="resNombre" placeholder="Tu nombre completo">
+      </div>
+      <div class="fg" style="margin-bottom:10px">
+        <label>Teléfono / WhatsApp</label>
+        <input type="tel" id="resTel" placeholder="+598 09X XXX XXX">
+      </div>
+      <div class="fg" style="margin-bottom:10px">
+        <label>Matrícula del vehículo</label>
+        <input type="text" id="resPatente" placeholder="Ej: ABC 1234" style="text-transform:uppercase">
+      </div>
+      <div class="fg" id="vehDataExtra" style="display:none;margin-bottom:10px">
+        <label>Marca / modelo (para lubricentro)</label>
+        <input type="text" id="resVehiculo" placeholder="Ej: Honda HR-V">
+      </div>
+
+      <div class="res-disclaimer">
+        ℹ️ Al reservar aceptás que el turno queda sujeto a disponibilidad. Te confirmamos por WhatsApp. <a onclick="openModal()">Términos y condiciones →</a>
+      </div>
+
+      <label class="res-check">
+        <input type="checkbox" id="resCheck" onchange="toggleSubmit()">
+        <span>He leído y acepto los <a onclick="openModal()">Términos y Condiciones</a>.</span>
+      </label>
+
+      <button class="res-submit" id="resSubmit" disabled onclick="submitReserva()">Confirmar reserva →</button>
+    </div>
+  </div>
+</section>
+
+<!-- SUSCRIPCIONES -->
+<section id="suscripciones">
+  <div class="fi">
+    <div class="stag">Planes mensuales</div>
+    <h2 class="stitle">SUSCRIPCIONES <em>POR PATENTE</em></h2>
+    <p class="ssub">Tu suscripción queda registrada a la matrícula de tu vehículo. Válido en ambas sucursales.</p>
+  </div>
+  <div class="plans-grid fi" id="plansGrid"></div>
+  <div style="margin-top:22px;padding:16px 20px;background:rgba(245,200,0,0.05);border:1px solid var(--border);border-radius:12px;font-size:13px;color:var(--gray2);line-height:1.7">
+    <strong style="color:var(--yellow)">Condiciones:</strong> Los lavados no se acumulan al mes siguiente · Un plan = una patente, no transferible · Lavados extra con 10% de descuento.
+  </div>
+</section>
+
+<!-- PROGRAMA DE FIDELIDAD -->
+<section id="fidelidad">
+  <div class="fi">
+    <div class="stag">Programa de puntos</div>
+    <h2 class="stitle">VEINTE&30 <em>REWARDS</em></h2>
+    <p class="ssub">Ganá puntos en cada visita. Canjeálos por lavados, café, productos de la cafetería o descuentos. Tu lealtad tiene recompensa.</p>
+  </div>
+
+  <div class="fid-hero fi">
+    <div class="fid-hero-text">
+      <h3>Ganás <em>1 punto</em> por cada $50 de consumo</h3>
+      <p>Cada lavado, cada café, cada carga de combustible y cada servicio del lubricentro suma puntos a tu cuenta automáticamente.</p>
+      <p>Acumulá puntos y subí de nivel — <strong>cuanto más alto el nivel, mejores los beneficios</strong>. Sin trámites complicados, sin tarjetas físicas: todo asociado a la patente de tu vehículo.</p>
+      <a href="#" onclick="suscribirWA('Programa de Fidelidad Rewards');return false;" class="btn-primary" style="margin-top:10px">Sumarme al programa →</a>
+    </div>
+    <div class="fid-card-visual">
+      <div class="fc-brand"><div class="bar"></div>REWARDS</div>
+      <div class="fc-label">Puntos acumulados</div>
+      <div class="fc-points">2.450</div>
+      <div class="fc-name">Martín González</div>
+      <div class="fc-mat">★ ABC 1234 · Nivel Plata</div>
+    </div>
+  </div>
+
+  <div class="stag" style="margin-top:48px;margin-bottom:14px">Niveles del programa</div>
+  <div class="fid-niveles">
+    <div class="nivel-card bronze">
+      <div class="nivel-icon">🥉</div>
+      <div class="nivel-name bronze">BRONCE</div>
+      <div class="nivel-puntos">0 – 999 puntos</div>
+      <ul class="nivel-list">
+        <li>1 punto por cada $50</li>
+        <li>Acceso a promociones exclusivas</li>
+        <li>Avisos prioritarios por WhatsApp</li>
+      </ul>
+    </div>
+    <div class="nivel-card silver">
+      <div class="nivel-icon">🥈</div>
+      <div class="nivel-name silver">PLATA</div>
+      <div class="nivel-puntos">1.000 – 2.999 puntos</div>
+      <ul class="nivel-list">
+        <li>1,25 puntos por cada $50</li>
+        <li>5% descuento en cafetería</li>
+        <li>1 lavado básico de regalo en tu cumple</li>
+      </ul>
+    </div>
+    <div class="nivel-card gold">
+      <div class="nivel-icon">🥇</div>
+      <div class="nivel-name gold">ORO</div>
+      <div class="nivel-puntos">3.000 – 7.999 puntos</div>
+      <ul class="nivel-list">
+        <li>1,5 puntos por cada $50</li>
+        <li>10% descuento en cafetería</li>
+        <li>Prioridad en turnos</li>
+        <li>2 lavados de regalo al año</li>
+      </ul>
+    </div>
+    <div class="nivel-card platinum">
+      <div class="nivel-icon">💎</div>
+      <div class="nivel-name platinum">PLATINO</div>
+      <div class="nivel-puntos">8.000+ puntos</div>
+      <ul class="nivel-list">
+        <li>2 puntos por cada $50</li>
+        <li>15% descuento en cafetería</li>
+        <li>Atención preferencial</li>
+        <li>1 detailing al año de regalo</li>
+        <li>Invitaciones a eventos VIP</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="stag" style="margin-top:48px;margin-bottom:14px">Cómo funciona</div>
+  <div class="fid-como">
+    <div class="fid-paso">
+      <div class="fid-paso-num">1</div>
+      <h4>Registrate</h4>
+      <p>Asocialo a tu patente. Sin tarjetas físicas, sin apps que instalar.</p>
+    </div>
+    <div class="fid-paso">
+      <div class="fid-paso-num">2</div>
+      <h4>Consumí y acumulá</h4>
+      <p>Cada vez que venís sumás puntos automáticamente. Lavados, café, combustible, lubricentro.</p>
+    </div>
+    <div class="fid-paso">
+      <div class="fid-paso-num">3</div>
+      <h4>Canjeá tus puntos</h4>
+      <p>Cuando quieras, en cualquiera de nuestras sucursales. Sin vencimiento durante 12 meses.</p>
+    </div>
+  </div>
+
+  <div class="stag" style="margin-top:36px;margin-bottom:14px">Qué podés canjear</div>
+  <div class="fid-canjes">
+    <div class="canje">
+      <div class="canje-icon">☕</div>
+      <div class="canje-name">Café Espresso</div>
+      <div class="canje-desc">Doble shot a elección</div>
+      <div class="canje-cost">150 <span>pts</span></div>
+    </div>
+    <div class="canje">
+      <div class="canje-icon">🥐</div>
+      <div class="canje-name">Medialunas (x3)</div>
+      <div class="canje-desc">Frescas del día</div>
+      <div class="canje-cost">200 <span>pts</span></div>
+    </div>
+    <div class="canje">
+      <div class="canje-icon">🚗</div>
+      <div class="canje-name">Lavado Básico</div>
+      <div class="canje-desc">Compacto · incluye aspirado</div>
+      <div class="canje-cost">800 <span>pts</span></div>
+    </div>
+    <div class="canje">
+      <div class="canje-icon">✨</div>
+      <div class="canje-name">Lavado Completo</div>
+      <div class="canje-desc">Con cera + plásticos</div>
+      <div class="canje-cost">1.200 <span>pts</span></div>
+    </div>
+    <div class="canje">
+      <div class="canje-icon">🛢️</div>
+      <div class="canje-name">$500 descuento aceite</div>
+      <div class="canje-desc">Aplicable en cambio de aceite</div>
+      <div class="canje-cost">600 <span>pts</span></div>
+    </div>
+    <div class="canje">
+      <div class="canje-icon">💎</div>
+      <div class="canje-name">Abrillantado</div>
+      <div class="canje-desc">Brillo profesional para tu auto</div>
+      <div class="canje-cost">350 <span>pts</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- GALERÍA -->
+<section id="galeria">
+  <div class="fi">
+    <div class="stag">Galería</div>
+    <h2 class="stitle">CONOCÉ <em>LA ESTACIÓN</em></h2>
+    <p class="ssub">Recorré nuestras instalaciones, equipo de trabajo y resultados.</p>
+  </div>
+
+  <div class="gallery-filter">
+    <button class="gf-btn active" onclick="filterGallery('all',this)">Todo</button>
+    <button class="gf-btn" onclick="filterGallery('lavadero',this)">Lavadero</button>
+    <button class="gf-btn" onclick="filterGallery('lubri',this)">Lubricentro</button>
+    <button class="gf-btn" onclick="filterGallery('cafe',this)">Cafetería</button>
+    <button class="gf-btn" onclick="filterGallery('pista',this)">Pista</button>
+    <button class="gf-btn" onclick="filterGallery('equipo',this)">Equipo</button>
+  </div>
+
+  <div class="gallery-grid" id="galleryGrid">
+    <!-- generado por JS -->
+  </div>
+  <p style="margin-top:20px;font-size:12px;color:var(--gray);text-align:center">📷 Las fotos reales se incorporarán próximamente. Esta es una vista previa de cómo se va a ver la galería.</p>
+</section>
+
+<!-- CAFETERÍA -->
+<section id="cafeteria">
+  <div class="fi">
+    <div class="stag">Mientras esperás</div>
+    <h2 class="stitle">CAFETERÍA <em>&amp; SNACKS</em></h2>
+    <p class="ssub">Tomá un café, comé algo rico. Tu auto queda en buenas manos.</p>
+  </div>
+  <div class="cafe-intro fi">
+    <div class="cafe-text">
+      <p>Mientras tu auto recibe el mejor cuidado, vos te merecés un momento de tranquilidad. Nuestra cafetería en las estaciones <strong>ANCAP</strong> está pensada para que la espera sea parte de la experiencia.</p>
+      <p>Café de especialidad, sándwiches frescos, medialunas y mucho más.</p>
+      <p><strong>Recordá:</strong> con tu ticket de lavado tenés descuento en cafetería. Y si sos del programa de fidelidad, ganás puntos por cada consumo.</p>
+    </div>
+    <div class="cafe-visual">
+      <div class="big-icon">☕</div>
+      <p>Cafetería disponible en ambas sucursales durante el horario del lavadero.</p>
+    </div>
+  </div>
+
+  <div class="stag">El menú</div>
+  <div class="menu-tabs">
+    <button class="menu-tab active" onclick="setMenuTab('bebidas',this)">☕ Bebidas</button>
+    <button class="menu-tab" onclick="setMenuTab('comidas',this)">🥐 Comidas</button>
+    <button class="menu-tab" onclick="setMenuTab('combos',this)">⭐ Combos</button>
+  </div>
+  <div class="menu-grid" id="menuGrid"></div>
+</section>
+
+<!-- CAR DETAIL -->
+<section id="detailing">
+  <div class="fi">
+    <div class="stag">Car Detail</div>
+    <h2 class="stitle">TRATAMIENTOS <em>PROFESIONALES</em></h2>
+    <p class="ssub">Más allá del lavado. Protección y brillo de larga duración.</p>
+  </div>
+  <div class="det-grid">
+    <div class="det-list fi">
+      <div class="det-item"><div><div class="di-name">Abrillantado</div><div class="di-desc">Todos los tamaños</div></div><div class="di-ps"><div class="dp"><div class="dv">$240</div><div class="dl">Compact.</div></div><div class="dp"><div class="dv">$275</div><div class="dl">Auto</div></div><div class="dp"><div class="dv">$315</div><div class="dl">SUV</div></div><div class="dp"><div class="dv">$370</div><div class="dl">XXL</div></div></div></div>
+      <div class="det-item"><div><div class="di-name">Tratamiento Acrílico</div><div class="di-desc">Protección duradera con cera acrílica</div></div><div class="di-ps"><div class="dp"><div class="dv">$360</div><div class="dl">Compact.</div></div><div class="dp"><div class="dv">$390</div><div class="dl">Auto</div></div><div class="dp"><div class="dv">$430</div><div class="dl">SUV</div></div><div class="dp"><div class="dv">$480</div><div class="dl">XXL</div></div></div></div>
+      <div class="det-item"><div><div class="di-name">Tratamiento Cerámico</div><div class="di-desc">Máxima protección. Hidrofóbico</div></div><div class="di-ps"><div class="dp"><div class="dv">$500</div><div class="dl">Compact.</div></div><div class="dp"><div class="dv">$540</div><div class="dl">Auto</div></div><div class="dp"><div class="dv">$645</div><div class="dl">SUV</div></div><div class="dp"><div class="dv">$690</div><div class="dl">XXL</div></div></div></div>
+      <div class="det-item"><div><div class="di-name">Limpieza Interior Profunda</div><div class="di-desc">Tapizados, tablero, plásticos y techos</div></div><div class="di-ps"><div class="dp"><div class="dv">USD 3.5</div><div class="dl">Completo</div></div></div></div>
+    </div>
+    <div class="det-aside fi">
+      <div class="det-card">
+        <h3>¿Qué es el Car Detail?</h3>
+        <p>Tratamiento profesional que restaura, protege y embellece cada superficie.</p>
+        <ul class="det-list2"><li>Resultados visibles desde el primer tratamiento</li><li>Prolonga la vida útil de la pintura</li><li>Protección contra UV, lluvia y suciedad</li><li>Realizado por técnicos especializados</li></ul>
+      </div>
+      <div>
+        <div class="stag" style="margin-bottom:12px">Adicionales</div>
+        <div class="adics">
+          <div class="adic"><div class="an">Chasis</div><div class="ap">USD 1.5</div></div>
+          <div class="adic"><div class="an">Motor</div><div class="ap">USD 1.5</div></div>
+          <div class="adic"><div class="an">Ópticas</div><div class="ap">$1.000 c/u</div></div>
+          <div class="adic"><div class="an">Alquitrán</div><div class="ap">Desde $500</div></div>
+          <div class="adic"><div class="an">Butaca</div><div class="ap">USD 1</div></div>
+          <div class="adic"><div class="an">Techo/Piso</div><div class="ap">USD 1</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PISTA -->
+<section id="pista">
+  <div class="fi">
+    <div class="stag">Estación de servicio</div>
+    <h2 class="stitle">PISTA <em>ANCAP</em></h2>
+    <p class="ssub">Combustibles, lubricantes y servicios para tu vehículo.</p>
+  </div>
+  <div class="servicios-pista fi">
+    <div class="sp-card"><div class="sp-icon">⛽</div><div class="sp-name">COMBUSTIBLES</div><div class="sp-desc">Gasolina, Super y Gasoil ANCAP.</div><div class="sp-price">Precio <span>oficial ANCAP</span></div></div>
+    <div class="sp-card"><div class="sp-icon">🛢️</div><div class="sp-name">LUBRICANTES</div><div class="sp-desc">Cambio de aceite y filtros.</div><div class="sp-price">Desde <span>consultar</span></div></div>
+    <div class="sp-card"><div class="sp-icon">🔧</div><div class="sp-name">CHECK RÁPIDO</div><div class="sp-desc">Revisión express de niveles y presión.</div><div class="sp-price">Sin cargo <span>con combustible</span></div></div>
+    <div class="sp-card"><div class="sp-icon">💨</div><div class="sp-name">INFLADO</div><div class="sp-desc">Estaciones de aire en ambas sucursales.</div><div class="sp-price">Sin cargo</div></div>
+  </div>
+</section>
+
+<!-- SUCURSALES -->
+<section id="sucursales">
+  <div class="fi">
+    <div class="stag">Dónde estamos</div>
+    <h2 class="stitle">DOS <em>SUCURSALES</em></h2>
+    <p class="ssub">Todo válido en ambas ubicaciones.</p>
+  </div>
+  <div class="loc-grid fi">
+    <div class="loc-card">
+      <div class="loc-map"><div class="loc-map-grid"></div><span style="position:relative;z-index:2;font-size:42px">📍</span></div>
+      <div class="loc-info">
+        <div class="loc-badge">Sucursal 20/30</div>
+        <div class="loc-name">LAS FOCAS &amp; EL REMANSO</div>
+        <div class="loc-addr">Calle Las Focas 0006 esq. El Remanso<br>Punta del Este, Maldonado</div>
+        <div class="loc-hrs">
+          <div class="lhr"><span class="ld">Lunes a Viernes</span><span class="lt">08:00 – 19:00</span></div>
+          <div class="lhr"><span class="ld">Sábados</span><span class="lt">08:00 – 18:00</span></div>
+          <div class="lhr"><span class="ld">Domingos y feriados</span><span class="lt">09:00 – 15:00</span></div>
+        </div>
+        <a href="https://maps.google.com/?q=Calle+Las+Focas+Punta+del+Este+Uruguay" target="_blank" class="loc-btn">Ver en Google Maps →</a>
+      </div>
+    </div>
+    <div class="loc-card">
+      <div class="loc-map"><div class="loc-map-grid"></div><span style="position:relative;z-index:2;font-size:42px">📍</span></div>
+      <div class="loc-info">
+        <div class="loc-badge">Sucursal Roosevelt</div>
+        <div class="loc-name">NACIONES UNIDAS &amp; ROOSEVELT</div>
+        <div class="loc-addr">Calle Naciones Unidas 0055 — Parada 11<br>Punta del Este, Maldonado</div>
+        <div class="loc-hrs">
+          <div class="lhr"><span class="ld">Lunes a Viernes</span><span class="lt">08:00 – 19:00</span></div>
+          <div class="lhr"><span class="ld">Sábados</span><span class="lt">08:00 – 18:00</span></div>
+          <div class="lhr"><span class="ld">Domingos y feriados</span><span class="lt">09:00 – 15:00</span></div>
+        </div>
+        <a href="https://maps.google.com/?q=Naciones+Unidas+55+Punta+del+Este+Uruguay" target="_blank" class="loc-btn">Ver en Google Maps →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NOSOTROS -->
+<section id="nosotros">
+  <div class="ab-grid fi">
+    <div class="ab-text">
+      <div class="stag">Sobre nosotros</div>
+      <h2 class="stitle">CALIDAD Y<br><em>TECNOLOGÍA</em><br>EN CADA VISITA</h2>
+      <p>Operamos bajo la bandera <strong>ANCAP</strong> con dos estaciones en puntos estratégicos de Punta del Este. Lavadero, lubricentro, cafetería y pista en un solo lugar.</p>
+      <p>Tecnología <strong>ISTOBAL M'NEX22</strong>, el sistema de lavado automático rollover más avanzado del mercado, con control de calidad en cada ciclo.</p>
+      <div class="pillars">
+        <div class="pillar"><div class="pi">⚡</div><div class="pt">Rapidez</div><div class="pd">Ciclo completo en minutos</div></div>
+        <div class="pillar"><div class="pi">🛡️</div><div class="pt">Calidad garantizada</div><div class="pd">Control en cada lavado</div></div>
+        <div class="pillar"><div class="pi">☕</div><div class="pt">Experiencia completa</div><div class="pd">Todo en un mismo lugar</div></div>
+        <div class="pillar"><div class="pi">📍</div><div class="pt">Dos ubicaciones</div><div class="pd">Cobertura en accesos principales</div></div>
+      </div>
+    </div>
+    <div class="ab-visual">
+      <div class="av-big"><div class="an">ISTOBAL M'NEX22</div><div class="al">Lavado automático rollover</div></div>
+      <div class="av-row">
+        <div class="av-item"><div class="an2">+10K</div><div class="al2">Lavados/año</div></div>
+        <div class="av-item"><div class="an2">2</div><div class="al2">Sucursales</div></div>
+        <div class="av-item"><div class="an2">7</div><div class="al2">Días/semana</div></div>
+        <div class="av-item"><div class="an2">100%</div><div class="al2">Control calidad</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section id="contacto">
+  <div class="fi">
+    <div class="stag">Contacto</div>
+    <h2 class="stitle">HABLEMOS <em>HOY</em></h2>
+    <p class="ssub">Consultas sobre servicios, suscripciones, fidelidad o Car Detail.</p>
+  </div>
+  <div class="ct-grid fi">
+    <div class="ct-form">
+      <h3>ENVIAR CONSULTA</h3>
+      <div class="fg" style="margin-bottom:14px"><label>Nombre</label><input type="text" id="ctNombre" placeholder="Tu nombre completo"></div>
+      <div class="fg" style="margin-bottom:14px"><label>WhatsApp</label><input type="tel" id="ctTel" placeholder="+598 09X XXX XXX"></div>
+      <div class="fg" style="margin-bottom:14px">
+        <label>Motivo</label>
+        <select id="ctMotivo"><option value="">Seleccioná</option><option>Reservas / turnos</option><option>Suscripciones</option><option>Programa de fidelidad</option><option>Car Detail</option><option>Lubricentro</option><option>Otro</option></select>
+      </div>
+      <div class="fg" style="margin-bottom:14px"><label>Sucursal</label><select id="ctSuc"><option value="">Seleccioná</option><option>Las Focas / El Remanso (20/30)</option><option>Naciones Unidas / Roosevelt</option><option>Ambas</option></select></div>
+      <div class="fg" style="margin-bottom:18px"><label>Consulta</label><textarea id="ctMsg" placeholder="¿En qué podemos ayudarte?" style="height:100px;resize:vertical"></textarea></div>
+      <button class="ct-submit" onclick="submitContacto()">Enviar consulta →</button>
+    </div>
+    <div class="ct-info">
+      <div class="ci"><div class="cii">📱</div><div class="cit">WhatsApp</div><div class="cid"><a href="https://wa.me/59894421186" target="_blank">+598 94 421 186</a><br>Administración · ambas sucursales</div></div>
+      <div class="ci"><div class="cii">📍</div><div class="cit">Sucursales</div><div class="cid"><strong style="color:var(--white)">20/30:</strong> Las Focas esq. El Remanso, PDE<br><br><strong style="color:var(--white)">Roosevelt:</strong> Naciones Unidas 55, Parada 11</div></div>
+      <div class="ci"><div class="cii">🕐</div><div class="cit">Horarios</div><div class="cid">Lun–Vie: 08:00–19:00<br>Sábados: 08:00–18:00<br>Dom y feriados: 09:00–15:00</div></div>
+      <div class="ci"><div class="cii">⭐</div><div class="cit">Programa Rewards</div><div class="cid">Acumulá puntos en cada servicio. <a onclick="document.getElementById('fidelidad').scrollIntoView({behavior:'smooth'})">Conocé el programa →</a></div></div>
+      <div class="ci"><div class="cii">📋</div><div class="cit">T&amp;C</div><div class="cid"><a onclick="openModal()">Leer términos y condiciones →</a></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-grid">
+    <div class="ft-brand"><div class="fn">VEINTE&amp;30</div><p>Lavado · Lubricentro · Cafetería · Pista ANCAP. Punta del Este.</p></div>
+    <div class="ft-col"><h4>Servicios</h4><ul><li><a href="#servicios">Car Wash</a></li><li><a href="#reservas">Reservar turno</a></li><li><a href="#suscripciones">Suscripciones</a></li><li><a href="#detailing">Car Detail</a></li></ul></div>
+    <div class="ft-col"><h4>Estación</h4><ul><li><a href="#reservas">Lubricentro</a></li><li><a href="#cafeteria">Cafetería</a></li><li><a href="#pista">Pista ANCAP</a></li><li><a href="#fidelidad">Programa Rewards</a></li></ul></div>
+    <div class="ft-col"><h4>Empresa</h4><ul><li><a href="#nosotros">Nosotros</a></li><li><a href="#sucursales">Sucursales</a></li><li><a href="#galeria">Galería</a></li><li><a href="#contacto">Contacto</a></li><li><a onclick="openModal()">T&amp;C</a></li></ul></div>
+  </div>
+  <div class="ft-bottom">
+    <p>© 2026 Veinte&amp;30 · STI Ltda. · RUT 100062160016</p>
+    <div class="ancap-tag"><div class="ancap-dot"></div>Estación oficial ANCAP · Punta del Este</div>
+  </div>
+</footer>
+
+<!-- MODAL T&C -->
+<div class="modal-overlay" id="tcModal" onclick="closeModalOutside(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>TÉRMINOS Y CONDICIONES</h2>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <h3>1. SERVICIO DE RESERVAS</h3>
+      <p>El sistema de reservas de Veinte&amp;30 permite agendar turnos de lavado y lubricentro con anticipación.</p>
+      <ul>
+        <li>La reserva se considera confirmada al recibir confirmación por WhatsApp.</li>
+        <li>Los turnos tienen tolerancia de <strong>15 minutos</strong>.</li>
+        <li>La disponibilidad puede verse afectada por condiciones climáticas o problemas técnicos.</li>
+      </ul>
+
+      <h3>2. CANCELACIONES</h3>
+      <ul>
+        <li>Cancelación gratuita con más de 2 horas de anticipación.</li>
+        <li>3 no shows consecutivos suspenden el sistema online por 30 días.</li>
+      </ul>
+
+      <h3>3. SUSCRIPCIONES</h3>
+      <ul>
+        <li>Registradas a la <strong>matrícula</strong> de un único vehículo. No transferible.</li>
+        <li>Los lavados <strong>no se acumulan</strong>.</li>
+        <li>Válida en ambas sucursales.</li>
+      </ul>
+
+      <h3>4. PROGRAMA DE FIDELIDAD</h3>
+      <ul>
+        <li>Puntos asociados a la matrícula del vehículo.</li>
+        <li>1 punto por cada $50 de consumo en el nivel Bronce. Multiplicadores según nivel.</li>
+        <li>Los puntos no caducan durante 12 meses desde la última actividad.</li>
+        <li>Veinte&amp;30 se reserva el derecho de modificar el programa con 30 días de aviso.</li>
+        <li>Canjes sujetos a disponibilidad. No reembolsables en efectivo.</li>
+      </ul>
+
+      <h3>5. LUBRICENTRO</h3>
+      <ul>
+        <li>Los precios pueden variar según marca y tipo de aceite/filtro elegido.</li>
+        <li>Duraciones estimadas; pueden variar según condiciones del vehículo.</li>
+        <li>Se recomienda llegar 10 minutos antes del turno reservado.</li>
+      </ul>
+
+      <h3>6. CALIDAD Y RESPONSABILIDADES</h3>
+      <ul>
+        <li>Control de calidad en cada servicio antes de entregar el vehículo.</li>
+        <li>Inconformidades deben comunicarse al momento de la entrega.</li>
+        <li>No nos responsabilizamos por objetos de valor dejados en el vehículo.</li>
+      </ul>
+
+      <h3>7. DATOS PERSONALES</h3>
+      <p>Datos recopilados se usan exclusivamente para la gestión del servicio (Ley 18.331 de Uruguay).</p>
+
+      <div class="highlight">
+        <p>📞 Consultas: WhatsApp de la sucursal en horario de atención.</p>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="modal-decline" onclick="closeModal()">Cerrar</button>
+      <button class="modal-accept" onclick="acceptTC()">Acepto los T&amp;C ✓</button>
+    </div>
+  </div>
+</div>
+
+<!-- LIGHTBOX GALERÍA -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <div class="lb-content" onclick="event.stopPropagation()">
+    <div class="lb-icon" id="lbIcon">🚗</div>
+    <div class="lb-title" id="lbTitle">Título</div>
+    <div class="lb-cat" id="lbCat">Categoría</div>
+    <div class="lb-desc" id="lbDesc">Descripción</div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ── DATOS ──
+// Número de WhatsApp del negocio (formato internacional sin + ni espacios)
+const WHATSAPP='59894421186';
+const P={
+  c:{label:'Compacto',    basico:790, completo:1000,premium:1680,exterior:560,interior:700,artesanal:700},
+  a:{label:'Auto/Cross.', basico:890, completo:1110,premium:1960,exterior:670,interior:800,artesanal:800},
+  s:{label:'SUV/Pick-Up', basico:1090,completo:1220,premium:2240,exterior:780,interior:950,artesanal:900},
+  x:{label:'XXL',         basico:1110,completo:1390,premium:2400,exterior:900,interior:1050,artesanal:1000}
+};
+const SVCS=[
+  {nm:'BÁSICO',badge:'Más popular',feat:true,key:'basico',desc:'Exterior + interior + vidrios + ruedas.',inc:['Lavado exterior completo','Aspirado interior','Vidrios internos y externos','Ruedas y llantas']},
+  {nm:'COMPLETO',badge:'Recomendado',feat:false,key:'completo',desc:'Básico + cera + plásticos exteriores.',inc:['Todo el Básico','Cera líquida aplicada','Plásticos exteriores tratados']},
+  {nm:'PREMIUM',badge:'Top nivel',feat:false,key:'premium',desc:'Completo + espuma + mano + renovador.',inc:['Todo el Completo','Espuma activa','Tratamiento a mano','Renovador int/ext']},
+  {nm:'EXTERIOR',badge:'',feat:false,key:'exterior',desc:'Solo carrocería, vidrios y ruedas.',inc:['Carrocería exterior','Vidrios exteriores','Ruedas y llantas']},
+  {nm:'INTERIOR',badge:'',feat:false,key:'interior',desc:'Limpieza interior con aspirado profundo.',inc:['Aspirado profundo','Tablero','Tapizados']},
+  {nm:'ARTESANAL',badge:'',feat:false,key:'artesanal',desc:'Lavado a mano en pasta.',inc:['Lavado manual','Pasta premium','Acabado a mano']}
+];
+const PLANS=[
+  {id:'esen',nm:'ESENCIAL',pill:'esen',hd:'esen',lavs:4,desc:'1 lavado por semana',disc:.16,btn:'out',feats:['Básico completo','Aspirado interior','Vidrios y ruedas','Ambas sucursales','10% dto. extras']},
+  {id:'comp',nm:'COMPLETO',pill:'comp',hd:'comp',lavs:6,desc:'1 lavado cada 5 días',disc:.22,btn:'',feat:true,feats:['Básico completo','Aspirado interior','Cera líquida incluida','Plásticos tratados','Ambas sucursales','15% dto. extras']},
+  {id:'prem',nm:'PREMIUM',pill:'prem',hd:'prem',lavs:8,desc:'2 lavados por semana',disc:.27,btn:'out',feats:['Todo el Completo','Espuma activa','Renovador int/ext','1 interior/mes','Prioridad turno']}
+];
+const VL={c:'Compact.',a:'Auto',s:'SUV',x:'XXL'};
+
+const MENU={
+  bebidas:[
+    {icon:'☕',nm:'Café Espresso',desc:'Doble shot premium.',price:'$120',promo:false},
+    {icon:'🥛',nm:'Café con Leche',desc:'Con leche cremosa al vapor.',price:'$160',promo:false},
+    {icon:'🧃',nm:'Jugo Natural',desc:'Naranja, pomelo o manzana.',price:'$180',promo:false},
+    {icon:'🧉',nm:'Mate Cocido',desc:'Con leche o agua.',price:'$100',promo:false},
+    {icon:'🥤',nm:'Licuados',desc:'Frutilla, banana, mango.',price:'$220',promo:false},
+    {icon:'💧',nm:'Agua / Bebidas',desc:'Agua mineral y refrescos.',price:'Desde $80',promo:false}
+  ],
+  comidas:[
+    {icon:'🥐',nm:'Medialunas (x3)',desc:'Frescas del día.',price:'$150',promo:true},
+    {icon:'🥪',nm:'Sándwich Clásico',desc:'Jamón y queso, caprese o veg.',price:'$320',promo:false},
+    {icon:'🧇',nm:'Tostadas Completas',desc:'Con manteca, mermelada y queso.',price:'$220',promo:false},
+    {icon:'🍩',nm:'Facturas Variadas',desc:'Selección del día.',price:'$90 c/u',promo:false},
+    {icon:'🥗',nm:'Ensalada Fresca',desc:'Estacional con aderezo.',price:'$280',promo:false},
+    {icon:'🍫',nm:'Snacks y Golosinas',desc:'Alfajores, chocolates.',price:'Desde $60',promo:false}
+  ],
+  combos:[
+    {icon:'⭐',nm:'Combo Desayuno',desc:'Café + 2 medialunas + jugo.',price:'$320',promo:true},
+    {icon:'🚗',nm:'Combo Lavado + Café',desc:'Con ticket de lavado: -15%.',price:'-15%',promo:true},
+    {icon:'🥪',nm:'Combo Almuerzo',desc:'Sándwich + bebida + fruta.',price:'$450',promo:false},
+    {icon:'☕',nm:'Combo Café Doble',desc:'Dos cafés + 4 medialunas.',price:'$390',promo:false}
+  ]
+};
+
+const GALLERY=[
+  {cat:'lavadero',title:'Lavado automático',desc:'Tecnología ISTOBAL M\'NEX22 en acción',icon:'🚗',size:'wide',tag:'Lavadero'},
+  {cat:'lavadero',title:'Sistema de cepillos',desc:'Cuidado profesional para cada superficie',icon:'🧽',size:'',tag:'Lavadero'},
+  {cat:'equipo',title:'Nuestro equipo',desc:'Profesionales capacitados',icon:'👥',size:'',tag:'Equipo'},
+  {cat:'lubri',title:'Cambio de aceite',desc:'Servicio rápido y profesional',icon:'🛢️',size:'tall',tag:'Lubricentro'},
+  {cat:'cafe',title:'Cafetería',desc:'Espacio cómodo mientras esperás',icon:'☕',size:'',tag:'Cafetería'},
+  {cat:'pista',title:'Surtidores ANCAP',desc:'Pista de combustibles',icon:'⛽',size:'wide',tag:'Pista'},
+  {cat:'lavadero',title:'Resultado final',desc:'Brillo profesional',icon:'✨',size:'',tag:'Lavadero'},
+  {cat:'cafe',title:'Menú variado',desc:'Café de especialidad y más',icon:'🥐',size:'',tag:'Cafetería'},
+  {cat:'lubri',title:'Servicio profesional',desc:'Atención experta',icon:'🔧',size:'',tag:'Lubricentro'},
+  {cat:'equipo',title:'Atención al cliente',desc:'Siempre a tu disposición',icon:'🤝',size:'wide',tag:'Equipo'},
+  {cat:'lavadero',title:'Detallado interior',desc:'Aspirado y limpieza completa',icon:'🚿',size:'',tag:'Lavadero'},
+  {cat:'pista',title:'Sucursales',desc:'Las Focas y Roosevelt',icon:'📍',size:'',tag:'Pista'}
+];
+
+let cv='c', selDate=null, selTime=null, resType='lavadero';
+
+// ── BANNER ROTATIVO ──
+let bannerIdx=0;
+const totalBanners=4;
+function setBanner(i){
+  bannerIdx=i;
+  document.getElementById('bannerTrack').style.transform=`translateX(-${i*100}%)`;
+  document.querySelectorAll('.banner-dot').forEach((d,idx)=>d.classList.toggle('active',idx===i));
+}
+function nextBanner(){setBanner((bannerIdx+1)%totalBanners)}
+function initBanner(){
+  const dotsEl=document.getElementById('bannerDots');
+  for(let i=0;i<totalBanners;i++){
+    const d=document.createElement('div');
+    d.className='banner-dot'+(i===0?' active':'');
+    d.onclick=()=>setBanner(i);
+    dotsEl.appendChild(d);
+  }
+  setInterval(nextBanner,5000);
+}
+
+// ── SERVICIOS ──
+function setV(v,btn){
+  cv=v;
+  document.querySelectorAll('.vtab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  renderSvc();
+}
+function renderSvc(){
+  const p=P[cv];
+  document.getElementById('svcGrid').innerHTML=SVCS.map(s=>`
+    <div class="svc-card${s.feat?' feat':''}">
+      ${s.badge?`<div class="sc-badge">${s.badge}</div>`:'<div style="height:22px"></div>'}
+      <div class="sc-name">${s.nm}</div>
+      <div class="sc-desc">${s.desc}</div>
+      <ul class="sc-inc">${s.inc.map(i=>`<li>${i}</li>`).join('')}</ul>
+      <div class="sc-price-box"><div class="pv">${p.label}</div><div class="pn">$${p[s.key].toLocaleString('es-UY')}<span> UY</span></div></div>
+    </div>`).join('');
+}
+
+// ── PLANES ──
+function renderPlans(){
+  document.getElementById('plansGrid').innerHTML=PLANS.map(pl=>{
+    const base=P.c[pl.id==='esen'?'basico':pl.id==='comp'?'completo':'premium'];
+    const unit=Math.round(base*(1-pl.disc)/10)*10;
+    const tot=unit*pl.lavs, sav=base*pl.lavs-tot;
+    return`<div class="plan-card${pl.feat?' feat':''}">
+      <div class="plan-hd ${pl.hd}">
+        <div class="plan-pill ${pl.pill}">${pl.nm}</div>
+        <div class="plan-name">${pl.nm}</div>
+        <div class="plan-lavs">${pl.lavs} lavados · ${pl.desc}</div>
+        <div class="plan-pr"><div class="plan-big" id="pb-${pl.id}">$${tot.toLocaleString('es-UY')}</div><div class="plan-unit">/mes</div></div>
+        <div class="plan-save">Ahorrás $<span id="ps-${pl.id}">${sav.toLocaleString('es-UY')}</span>/mes</div>
+      </div>
+      <div class="plan-bd">
+        <div class="pvtabs">${Object.entries(VL).map(([k,v])=>`<button class="pvtab${k==='c'?' active':''}" onclick="updPlan('${pl.id}','${k}',${pl.disc},${pl.lavs},'${pl.id==='esen'?'basico':pl.id==='comp'?'completo':'premium'}',this)">${v}</button>`).join('')}</div>
+        ${pl.feats.map(f=>`<div class="pf"><span class="ck">✓</span><span>${f}</span></div>`).join('')}
+        <a href="#" onclick="suscribirWA('${pl.nm}');return false;" class="plan-btn ${pl.btn}">Suscribirme →</a>
+      </div>
+    </div>`;
+  }).join('');
+}
+function updPlan(id,v,disc,lavs,skey,btn){
+  btn.closest('.pvtabs').querySelectorAll('.pvtab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const base=P[v][skey],unit=Math.round(base*(1-disc)/10)*10;
+  document.getElementById('pb-'+id).textContent='$'+(unit*lavs).toLocaleString('es-UY');
+  document.getElementById('ps-'+id).textContent=(base*lavs-unit*lavs).toLocaleString('es-UY');
+}
+
+// ── RESERVAS — LAVADERO o LUBRICENTRO ──
+const SVC_LAVADERO=[
+  {v:'basico',n:'Car Wash Básico'},
+  {v:'completo',n:'Car Wash Completo'},
+  {v:'premium',n:'Car Wash Premium'},
+  {v:'exterior',n:'Solo Exterior'},
+  {v:'interior',n:'Solo Interior'},
+  {v:'artesanal',n:'Artesanal'},
+  {v:'detail',n:'Car Detail (consultar)'}
+];
+const SVC_LUBRI=[
+  {v:'aceite',n:'Cambio de aceite (30 min)'},
+  {v:'filtros',n:'Cambio de filtros (20 min)'},
+  {v:'aceite-filtros',n:'Aceite + filtros (45 min)'},
+  {v:'fluidos',n:'Revisión de fluidos (20 min)'},
+  {v:'lubricantes',n:'Colocación de lubricantes (30 min)'},
+  {v:'revision',n:'Revisión general (25 min)'}
+];
+
+function setResType(type,btn){
+  resType=type;
+  document.querySelectorAll('.res-tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  // Toggle UI
+  document.getElementById('lubriInfo').style.display=type==='lubricentro'?'block':'none';
+  document.getElementById('vehDataExtra').style.display=type==='lubricentro'?'block':'none';
+  document.getElementById('resFormTitle').textContent=type==='lavadero'?'COMPLETAR RESERVA — LAVADERO':'COMPLETAR RESERVA — LUBRICENTRO';
+  document.getElementById('lblServicio').textContent=type==='lavadero'?'Servicio de lavado':'Servicio del lubricentro';
+  // Repoblar select de servicios
+  const sel=document.getElementById('resServicio');
+  const opts=type==='lavadero'?SVC_LAVADERO:SVC_LUBRI;
+  sel.innerHTML='<option value="">Elegí un servicio</option>'+opts.map(o=>`<option value="${o.v}">${o.n}</option>`).join('');
+}
+
+// ── CALENDARIO ──
+let calYear, calMonth;
+const today=new Date();
+calYear=today.getFullYear(); calMonth=today.getMonth();
+const MESES=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+
+function renderCal(){
+  document.getElementById('calTitle').textContent=MESES[calMonth]+' '+calYear;
+  const firstDay=new Date(calYear,calMonth,1).getDay();
+  const daysInMonth=new Date(calYear,calMonth+1,0).getDate();
+  let html='';
+  for(let i=0;i<firstDay;i++) html+=`<div class="cal-day empty"></div>`;
+  for(let d=1;d<=daysInMonth;d++){
+    const date=new Date(calYear,calMonth,d);
+    const isPast=date<new Date(today.getFullYear(),today.getMonth(),today.getDate());
+    const isToday=(calYear===today.getFullYear()&&calMonth===today.getMonth()&&d===today.getDate());
+    const isSel=(selDate&&selDate.d===d&&selDate.m===calMonth&&selDate.y===calYear);
+    const dow=date.getDay();
+    const isClosed=(dow===0&&d%3===0);
+    const avail=isPast||isClosed?'':d%5===0?'full':d%3===0?'busy':'available';
+    let cls='cal-day';
+    if(isPast) cls+=' past';
+    else if(isClosed) cls+=' past';
+    else if(isSel) cls+=' selected';
+    else if(isToday) cls+=' today';
+    if(!isPast&&!isClosed) cls+=` ${avail}`;
+    const click=(!isPast&&!isClosed)?`onclick="selectDate(${d},${calMonth},${calYear},'${avail}')"`:'';
+    html+=`<div class="${cls}" ${click}>${d}</div>`;
+  }
+  document.getElementById('calGrid').innerHTML=html;
+}
+function changeMonth(dir){
+  calMonth+=dir;
+  if(calMonth>11){calMonth=0;calYear++;}
+  if(calMonth<0){calMonth=11;calYear--;}
+  renderCal();
+}
+function selectDate(d,m,y,avail){
+  if(avail==='full'){showToast('Sin turnos disponibles para ese día.');return;}
+  selDate={d,m,y};
+  const rfSel=document.getElementById('rfSelected');
+  rfSel.textContent=`📅 ${d} de ${MESES[m]} de ${y}`;
+  rfSel.classList.add('show');
+  renderCal();
+  renderTimeSlots();
+}
+function renderTimeSlots(){
+  const suc=document.getElementById('resSucursal').value;
+  const tg=document.getElementById('timeGrid');
+  if(!selDate||!suc){tg.innerHTML='<div style="grid-column:1/-1;font-size:13px;color:var(--gray);padding:10px 0">Seleccioná sucursal y fecha primero</div>';return;}
+  const slots=['08:00','08:30','09:00','09:30','10:00','10:30','11:00','11:30','12:00','12:30','13:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30','18:00','18:30'];
+  const fullSlots=[2,5,8,11,14];
+  tg.innerHTML=slots.map((t,i)=>{
+    const isFull=fullSlots.includes(i);
+    return`<button class="time-slot${isFull?' ts-full':''}" onclick="${isFull?'':'selectTime(\''+t+'\',this)'}">${t}${isFull?'<br><span style=\'font-size:9px\'>Lleno</span>':''}</button>`;
+  }).join('');
+}
+function selectTime(t,btn){
+  selTime=t;
+  document.querySelectorAll('.time-slot').forEach(b=>b.classList.remove('ts-selected'));
+  btn.classList.add('ts-selected');
+}
+function submitReserva(){
+  const nm=document.getElementById('resNombre').value.trim();
+  const tel=document.getElementById('resTel').value.trim();
+  const pat=document.getElementById('resPatente').value.trim();
+  const suc=document.getElementById('resSucursal').value;
+  const svc=document.getElementById('resServicio').value;
+  if(!nm||!tel||!pat||!suc||!svc||!selDate||!selTime){showToast('⚠ Completá todos los campos.');return;}
+  const sucLabel=suc==='2030'?'Las Focas / El Remanso (20/30)':'Naciones Unidas / Roosevelt';
+  const dateStr=`${selDate.d} de ${MESES[selDate.m]} de ${selDate.y}`;
+  const tipo=resType==='lavadero'?'Lavadero':'Lubricentro';
+  const svcList=resType==='lavadero'?SVC_LAVADERO:SVC_LUBRI;
+  const svcObj=svcList.find(s=>s.v===svc);
+  const svcName=svcObj?svcObj.n:svc;
+  const vehExtra=document.getElementById('resVehiculo')?document.getElementById('resVehiculo').value.trim():'';
+  let msg=`Hola! Quiero reservar un turno de *${tipo}* en Veinte&30 CarWash.\n\n`;
+  msg+=`📋 *Servicio:* ${svcName}\n`;
+  msg+=`📅 *Fecha:* ${dateStr}\n`;
+  msg+=`🕐 *Hora:* ${selTime}\n`;
+  msg+=`📍 *Sucursal:* ${sucLabel}\n`;
+  msg+=`🚗 *Matrícula:* ${pat.toUpperCase()}\n`;
+  if(vehExtra) msg+=`🔧 *Vehículo:* ${vehExtra}\n`;
+  msg+=`\n👤 *Nombre:* ${nm}\n`;
+  msg+=`📱 *Teléfono:* ${tel}\n`;
+  msg+=`\n¡Quedo a la espera de la confirmación! Gracias.`;
+  const url=`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`;
+  showToast('✓ Abriendo WhatsApp para confirmar tu reserva...');
+  setTimeout(()=>window.open(url,'_blank'),600);
+}
+function toggleSubmit(){
+  document.getElementById('resSubmit').disabled=!document.getElementById('resCheck').checked;
+}
+function submitContacto(){
+  const nm=document.getElementById('ctNombre').value.trim();
+  const tel=document.getElementById('ctTel').value.trim();
+  const mot=document.getElementById('ctMotivo').value;
+  const suc=document.getElementById('ctSuc').value;
+  const consulta=document.getElementById('ctMsg').value.trim();
+  if(!nm||!consulta){showToast('⚠ Completá al menos tu nombre y la consulta.');return;}
+  let msg=`Hola! Tengo una consulta para Veinte&30 CarWash.\n\n`;
+  msg+=`👤 *Nombre:* ${nm}\n`;
+  if(tel) msg+=`📱 *Teléfono:* ${tel}\n`;
+  if(mot) msg+=`📋 *Motivo:* ${mot}\n`;
+  if(suc) msg+=`📍 *Sucursal:* ${suc}\n`;
+  msg+=`\n💬 *Consulta:* ${consulta}`;
+  const url=`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`;
+  showToast('✓ Abriendo WhatsApp...');
+  setTimeout(()=>window.open(url,'_blank'),600);
+}
+function suscribirWA(plan){
+  const msg=`Hola! Me interesa la suscripción *${plan}* de Veinte&30 CarWash. ¿Me pueden dar más info para suscribirme? Gracias!`;
+  const url=`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`;
+  window.open(url,'_blank');
+}
+
+// ── MENÚ CAFETERÍA ──
+let menuTab='bebidas';
+function setMenuTab(tab,btn){
+  menuTab=tab;
+  document.querySelectorAll('.menu-tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  renderMenu();
+}
+function renderMenu(){
+  document.getElementById('menuGrid').innerHTML=MENU[menuTab].map(it=>`
+    <div class="menu-item${it.promo?' promo':''}">
+      ${it.promo?'<div class="promo-badge">Promo</div>':''}
+      <div class="mi-icon">${it.icon}</div>
+      <div class="mi-name">${it.nm}</div>
+      <div class="mi-desc">${it.desc}</div>
+      <div class="mi-price">${it.price}</div>
+    </div>`).join('');
+}
+
+// ── GALERÍA ──
+let galleryFilter='all';
+function filterGallery(cat,btn){
+  galleryFilter=cat;
+  document.querySelectorAll('.gf-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderGallery();
+}
+function renderGallery(){
+  const items=galleryFilter==='all'?GALLERY:GALLERY.filter(g=>g.cat===galleryFilter);
+  document.getElementById('galleryGrid').innerHTML=items.map((g,i)=>`
+    <div class="gallery-item ${g.size}" onclick="openLightbox(${GALLERY.indexOf(g)})">
+      <div class="gi-grid-bg"></div>
+      <div class="gi-tag">${g.tag}</div>
+      <div class="gi-icon">${g.icon}</div>
+      <div class="gi-overlay">
+        <div class="gi-title">${g.title}</div>
+        <div class="gi-cat">${g.tag}</div>
+      </div>
+    </div>`).join('');
+}
+function openLightbox(idx){
+  const g=GALLERY[idx];
+  document.getElementById('lbIcon').textContent=g.icon;
+  document.getElementById('lbTitle').textContent=g.title;
+  document.getElementById('lbCat').textContent=g.tag;
+  document.getElementById('lbDesc').textContent=g.desc;
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeLightbox(){
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+// ── MODAL T&C ──
+function openModal(){document.getElementById('tcModal').classList.add('open');document.body.style.overflow='hidden'}
+function closeModal(){document.getElementById('tcModal').classList.remove('open');document.body.style.overflow=''}
+function closeModalOutside(e){if(e.target===document.getElementById('tcModal'))closeModal()}
+function acceptTC(){
+  document.getElementById('resCheck').checked=true;
+  toggleSubmit();
+  closeModal();
+  showToast('✓ Términos y condiciones aceptados.');
+}
+
+// ── UTILS ──
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),4000);
+}
+function closeMob(){document.getElementById('mm').classList.remove('open')}
+
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis')})},{threshold:.08});
+document.querySelectorAll('.fi').forEach(el=>obs.observe(el));
+
+// ── INIT ──
+renderSvc();renderPlans();renderCal();renderMenu();renderGallery();initBanner();
+setResType('lavadero',document.querySelector('.res-tab.active'));
+</script>
+</body>
+</html>
